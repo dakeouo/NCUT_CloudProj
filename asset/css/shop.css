@@ -1,0 +1,166 @@
+body{
+	position: absolute;
+	top: -8px;
+	bottom: -8px;
+	left: -8px;
+	width: 100%;
+	min-width: 1000px;
+	font-family: "微軟正黑體";
+}
+header{
+	position: relative;
+	padding: 0.7em 1em;
+	height: 2em;
+	overflow: hidden;
+}
+
+.front-header{
+	background-color: #842b00;
+}
+.front-header label[id="title"]{
+	color: white;
+	font-size: 1.35em;
+	font-weight: 600;
+}
+.front-header nav{
+	position: relative;
+	top: -0.7em;
+	float: right;
+	/*overflow: hidden;*/
+	/*background-color: orange;*/
+}
+.front-header nav ul, .area-block ul{
+	list-style-type: none;
+	margin: 0;
+  	padding: 0;
+}
+.front-header nav ul li, .area-block ul li{
+	float: left;
+}
+.front-header nav ul a{
+	display: block;
+	/*width: 2em;*/
+	color: white;
+  	text-align: center;
+	text-decoration: none;
+	/*background-color: orange;*/
+	padding: 1.05em 1em;
+	font-size: 1em;
+}
+.front-header nav ul a[class="btn"]{
+	display: block;
+	position: relative;
+	top: 0.6em;
+	left: 0.25em;
+	color: white;
+  	text-align: center;
+	text-decoration: none;
+	background-color: #ff8000;
+	border-radius: 0.5em;
+	padding: 0.45em 1em;
+	font-size: 1em;
+}
+.front-header nav ul a[class="btn"]:hover{
+	background-color: #ffa042;
+}
+.front-header nav ul a:hover{
+	background-color: #bb3d00;
+}
+#cart{
+	color: yellow;
+	font-weight: 600;	
+}
+.container{
+	position: relative;
+	min-width: 1000px;
+	width: 100%;
+	min-height: 90vh;
+	height: auto;
+}
+.content{
+	position: relative;
+	margin: 0 auto;
+	min-width: 900px;
+	width: 90vw;
+	padding: 1em;
+	height: 100%;
+}
+#headerImg{
+	position: relative;
+	background-color: #eee;
+	align-items: center;
+	height: 20em;
+}
+
+.content-area{
+	position: relative;
+	text-align: center;
+	/*background-color: gray;*/
+	/*min-width: inherit;*/
+	min-width: 900px;
+	height: 20em;
+}
+.content-area label[class="title"]{
+	position: relative;
+	top: 0.5em;
+	color: white;
+	padding: 0.25em 2em;
+	font-weight: 600;
+	font-size: 1.4em;
+	background: -webkit-linear-gradient(#bb3d00,#842b00);
+	background: -o-linear-gradient(#bb3d00,#842b00);
+	background: -moz-linear-gradient(#bb3d00,#842b00);
+	background: linear-gradient(#bb3d00,#842b00);
+}
+
+.content-area label[class="sub-title"]{
+	position: relative;
+	top: 0.5em;
+	font-size: 1.2em;
+}
+
+.area-block{
+	position: relative;
+	top: 1em;
+	min-width: 900px;
+	width: 100%;
+	height: auto;
+	/*background-color: gray;*/
+}
+.area-block ul{
+	position: relative;
+	top: 1em;
+}
+.area-block ul li{
+	min-width: 100px;
+	width: 12vw;
+	padding: 1.5em 3vw;
+	/*background-color: orange;*/
+}
+.area-block ul li:hover{
+	background-color: #fff3cc;
+}
+
+.area-block ul li div[class="img"]{
+	min-width: 100px;
+	min-height: 100px;
+	width: 12vw;
+	height: 12vw;
+	background-color: #eee;
+	border-width: 0.1em;
+	border-color: #ddd;
+	border-style: solid;
+}
+
+#footer{
+	position: relative;
+	bottom: -2em;
+	padding: 0.7em;
+	color: white;
+	text-align: center;
+	background-color: #666;
+	font-size: 0.95em;
+	min-width: 1000px;
+	width: initial;
+	height: auto;
+}
