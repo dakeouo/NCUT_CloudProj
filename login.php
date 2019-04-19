@@ -8,9 +8,9 @@
 		<div class="login-form">
 			<label class="title">NCUT TeaShop</label>
 			<form method="POST" action="">
-				<input type="email" name="email" placeholder="電子信箱">
-				<input type="password" name="password" placeholder="密碼">
-				<input type="button" name="submit" class="btn btn-second half" value="註冊" onclick="javascript:location.href='register'">
+				<input type="email" name="email" placeholder="電子信箱" required>
+				<input type="password" name="password" placeholder="密碼" required>
+				<input type="button" name="submit" class="btn btn-second half" value="註冊" onclick="javascript:location.href='register.php'">
 				<input type="button" name="submit" class="btn btn-primary half" value="登入">
 			</form>
 		</div>

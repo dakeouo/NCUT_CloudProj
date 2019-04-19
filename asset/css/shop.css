@@ -205,7 +205,11 @@ input{
 	font-family: inherit;
 	width: 100%;
 }
-
+.form-block{
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	text-align: left;
+}
 /*-----button-----*/
 .btn{
 	text-decoration: none;
