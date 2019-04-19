@@ -13,14 +13,22 @@ header{
 	height: 2em;
 	overflow: hidden;
 }
+input{
+	font-family: inherit;
+}
 
 .front-header{
+	min-width: 1000px;
+	width: inherit;
 	background-color: #842b00;
 }
 .front-header label[id="title"]{
-	color: white;
 	font-size: 1.35em;
 	font-weight: 600;
+}
+.front-header label[id="title"] a{
+	text-decoration: none;
+	color: white;
 }
 .front-header nav{
 	position: relative;
@@ -47,7 +55,7 @@ header{
 	padding: 1.05em 1em;
 	font-size: 1em;
 }
-.front-header nav ul a[class="btn"]{
+.front-header nav ul a[class="nav-btn"]{
 	display: block;
 	position: relative;
 	top: 0.6em;
@@ -55,12 +63,12 @@ header{
 	color: white;
   	text-align: center;
 	text-decoration: none;
-	background-color: #ff8000;
+	background-color: #ff6000;
 	border-radius: 0.5em;
 	padding: 0.45em 1em;
 	font-size: 1em;
 }
-.front-header nav ul a[class="btn"]:hover{
+.front-header nav ul a[class="nav-btn"]:hover{
 	background-color: #ffa042;
 }
 .front-header nav ul a:hover{
@@ -74,7 +82,7 @@ header{
 	position: relative;
 	min-width: 1000px;
 	width: 100%;
-	min-height: 90vh;
+	min-height: 83vh;
 	height: auto;
 }
 .content{
@@ -98,6 +106,7 @@ header{
 	/*background-color: gray;*/
 	/*min-width: inherit;*/
 	min-width: 900px;
+	width: inherit;
 	height: 20em;
 }
 .content-area label[class="title"]{
@@ -123,16 +132,18 @@ header{
 	position: relative;
 	top: 1em;
 	min-width: 900px;
-	width: 100%;
+	width: inherit;
 	height: auto;
 	/*background-color: gray;*/
 }
 .area-block ul{
 	position: relative;
+	min-width: inherit;
+	width: inherit;
 	top: 1em;
 }
 .area-block ul li{
-	min-width: 100px;
+	min-width: 120px;
 	width: 12vw;
 	padding: 1.5em 3vw;
 	/*background-color: orange;*/
@@ -142,8 +153,8 @@ header{
 }
 
 .area-block ul li div[class="img"]{
-	min-width: 100px;
-	min-height: 100px;
+	min-width: 120px;
+	min-height: 120px;
 	width: 12vw;
 	height: 12vw;
 	background-color: #eee;
@@ -161,6 +172,78 @@ header{
 	background-color: #666;
 	font-size: 0.95em;
 	min-width: 1000px;
-	width: initial;
+	width: inherit;
 	height: auto;
+}
+.login-form{
+	position: relative;
+	margin: 1em auto;
+	width: 320px;
+	height: auto;
+	padding: 1em;
+	border-color: #eee;
+	border-style: solid;
+	border-width: 0.1em;
+	border-radius: 0.5em; 
+	text-align: center;
+}
+.login-form label[class="title"]{
+	font-size: 1.5em;
+	font-weight: 600;
+	color: #842b00;
+}
+.login-form form{
+	padding: 0.5em 0;
+}
+.login-form form input[type="text"],
+.login-form form input[type="email"],
+.login-form form input[type="password"]{
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	padding: 0.3em;
+	font-size: 0.9em;
+	font-family: inherit;
+	width: 100%;
+}
+
+/*-----button-----*/
+.btn{
+	text-decoration: none;
+	border-style: none;
+	padding: 0.1em 0.3em;
+	font-style: inherit;
+	font-size: 1em;
+	color: black;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	height: 2em;
+	background-color: #eee;
+}
+.btn:hover{
+	background-color: #ddd;
+}
+.btn-primary{
+	background-color: #ff7000;
+	color: white;
+}
+.btn-primary:hover{
+	background-color: #ffa042;
+}
+.btn-second{
+	background-color: #444;
+	color: white;
+}
+.btn-second:hover{
+	background-color: #666;
+}
+/*---------------------------*/
+button a{
+	text-decoration: none;
+	color: inherit;
+}
+.half{
+	width: 49%;
+}
+.fit{
+	width: 100%;
 }

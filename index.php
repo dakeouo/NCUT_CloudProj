@@ -28,7 +28,6 @@
 						<li>
 							<div class="img"></div>
 							<label class="sub-title">商品名稱</label>
-							
 						</li>
 					<?php } ?>
 					</ul>
