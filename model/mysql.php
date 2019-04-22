@@ -30,6 +30,17 @@ class Mysql{
 			return false;
 		}else return true;
 	}
+	function ItemisExist($type,$name){
+		if($type == "shops"){
+			$sql = "SELECT sid, name FROM shops WHERE name='".$name."' AND isActive=1 LIMIT 0,1";
+		}
+		$result = $this->conn->query($sql);
+		if ($result->num_rows > 0){
+			if($row = $result->fetch_assoc()) return $row["sid"];
+		}else{
+			return false;
+		}
+	}
 	function userCheck($type,$account,$password=null){
 		if($type == "users"){
 			$sql = "SELECT uid, username, password FROM users WHERE email='".$account."' AND isActive=1";
@@ -79,5 +90,30 @@ class Mysql{
 			return $lab.str_pad($value,$len,'0',STR_PAD_LEFT);
 		}else return null;
 	} 
+
+	function getData($name,$id=null){
+		switch ($name) {
+			case 'shops':
+				if($id) $sql = "SELECT `sid`, `name`, `zone_id`, `phone_id`, `phone`, `address` FROM `shops` WHERE `sid`='".$id."'";
+				else{
+					$sql = "SELECT `shops`.sid, `shops`.name,`zone`.name AS zone,`shops`.phone_id,`shops`.phone,`shops`.address FROM `shops` JOIN `zone` ON `shops`.zone_id = `zone`.zone_id WHERE `sid` <> 'S0000' AND isActive = 1";
+				}
+				break;
+			case 'zones':
+				$sql = "SELECT `zone_id`,`name` FROM `zone` WHERE 1";
+				break;
+			default:
+				# code...
+				break;
+		}
+		$result = $this->conn->query($sql);
+		$value = array();
+		if ($result->num_rows > 0){
+			while($row = mysqli_fetch_assoc($result)){
+				array_push($value,$row);
+			}
+		}else $value = -1;
+		return $value;
+	}
 }
 ?>

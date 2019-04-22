@@ -20,11 +20,18 @@ input{
 table{
 	width: 100%;
 	text-align: center;
-	border-style: none;
+	border-collapse:collapse;
 }
 table th{
 	background-color: #842b00;
 	color: white;
+	padding: 0.3em 0;
+}
+table td{
+	padding: 0.7em 0;
+}
+table tr:nth-child(even){
+	background-color: #eee;
 }
 .front-header{
 	min-width: 1000px;
@@ -247,6 +254,9 @@ table th{
 	margin-bottom: 0.3em;
 	text-align: left;
 }
+#back-table th{
+	background-color: #444;
+}
 /*-----button-----*/
 .btn{
 	text-decoration: none;
@@ -283,6 +293,13 @@ table th{
 }
 .btn-green:hover{
 	background-color: #00bb00;
+}
+.btn-red{
+	background-color: #ea0000;
+	color: white;
+}
+.btn-red:hover{
+	background-color: #ff2d2d;
 }
 .btn-block{
 	position: relative;
@@ -344,11 +361,53 @@ table th{
 #backend-content-area{
 
 }
+#backend-form-photo{
+	position: relative;
+	top: 1em;
+	left: 2em;
+	width: 14em;
+	height: 14em;
+	align-items: center;
+	overflow: hidden;
+}
+#backend-form-photo div{
+	position: relative;
+	left: -13em;
+	width: 40em;
+	text-align: center;
+}
+#backend-form-photo div img{
+	margin: 0 auto;
+	height: 100%;
+}
+#backend-form-input{
+	position: relative;
+	padding: 0.3em 1em;
+	top: -12em;
+	left: 15em;
+	line-height: 2.3em;
+	font-size: 1.1em;
+	width: 560px;
+	/*background-color: yellow;*/
+}
+#backend-form-input form input[type="text"],
+#backend-form-input form input[type="tel"],
+#backend-form-input form input[type="file"],
+#backend-form-input select{
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	padding: 0.3em;
+	font-size: 0.9em;
+	font-family: inherit;
+}
 /*---------------------------*/
 button a{
 	text-decoration: none;
 	color: inherit;
 	font-size: inherit;
+}
+.third{
+	width: 32%;
 }
 .half{
 	width: 49%;

@@ -8,8 +8,8 @@
 		<label class="back-info">後臺管理登入</label>
 		<form method="POST" action="../authcheck.php">
 				<input type="hidden" name="mode" value="back-login">
-				<input type="text" name="shopId" id="shopId" placeholder="店家代號" required>
-				<input type="password" name="password" id="password" placeholder="密碼" required>
+				<input type="text" name="shopId" id="shopId" placeholder="店家編號" required>
+				<input type="password" name="password" id="password" placeholder="密碼(預設為店家編號)" required>
 				<input type="submit" name="submit" class="btn btn-primary fit" value="登入">
 				<input type="button" name="submit" class="btn btn-second fit" value="返回前台" onclick="javascript:location.href='../index.php'">
 		</form>

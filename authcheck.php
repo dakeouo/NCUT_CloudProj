@@ -29,6 +29,39 @@ switch ($mode) {
 	case 'back-login':
 		$auth->login("shops",$_POST['shopId'],$_POST['password']);
 		break;
+	case 'back-shop-add':
+		$chName = $auth->mysql->ItemisExist("shops",$_POST['name']);
+		if($chName){
+			$auth->main->Alert("此門市名稱已存在(編號：".$chName.")");
+			$auth->main->goBack();
+			break;
+		}
+		$data = array(
+			'name' => $_POST['name'],
+			'zone_id' => $_POST['zone_id'],
+			'phone_id' => $_POST['phone_id'],
+			'phone' => $_POST['phone'],
+			'address' => $_POST['address']
+		);
+		$auth->addShop($data);
+		break;
+	case 'back-shop-edit':
+		$chName = $auth->mysql->ItemisExist("shops",$_POST['name']);
+		if($chName && ($chName != $_POST['sid'])){
+			$auth->main->Alert("此門市名稱已存在(編號：".$chName.")");
+			$auth->main->goBack();
+			break;
+		}
+		$data = array(
+			'sid' => $_POST['sid'],
+			'name' => $_POST['name'],
+			'zone_id' => $_POST['zone_id'],
+			'phone_id' => $_POST['phone_id'],
+			'phone' => $_POST['phone'],
+			'address' => $_POST['address']
+		);
+		$auth->editShop($data);
+		break;
 	default:
 		# code...
 		break;

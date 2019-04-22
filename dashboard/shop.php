@@ -1,4 +1,5 @@
 <?php include_once "temp/check.php"; ?>
+<?php include_once "../model/dataset.php"; $dataset = new Dataset();?>
 <html>
 <head>
 	<?php $title = "店家管理";  include_once "temp/header.php"; ?>
@@ -8,11 +9,11 @@
 	<div class="container">
 		<div class="content">
 			<div id="backend-title-area">
-				<label id="total-title">店家管理</label>
-				<a href="" id="total-btn" class="btn btn-green">新增店家</a>
+				<label id="total-title"><?php echo $title;?></label>
+				<a href="newshop.php" id="total-btn" class="btn btn-green">新增店家</a>
 			</div>
 			<div id="backend-content-area">
-				<table>
+				<table id="back-table">
 					<tbody>
 						<th>店家編號</th>
 						<th>門市名稱</th>
@@ -21,14 +22,7 @@
 						<th>地址</th>
 						<th>修改</th>
 					</tbody>
-					<tr>
-						<td>A0000</td>
-						<td>總店</td>
-						<td>台中市</td>
-						<td>(04)23924505</td>
-						<td>臺中市太平區坪林里中山路二段 57號</td>
-						<td>修改</td>
-					</tr>
+					<?php $dataset->getShopData(); ?>
 				</table>
 			</div>
 		</div>
