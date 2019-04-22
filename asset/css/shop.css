@@ -5,6 +5,7 @@ body{
 	left: -8px;
 	width: 100%;
 	min-width: 1000px;
+	height: 100% + 2em;
 	font-family: "微軟正黑體";
 }
 header{
@@ -16,10 +17,17 @@ header{
 input{
 	font-family: inherit;
 }
-
+table{
+	width: 100%;
+	text-align: center;
+	border-style: none;
+}
+table th{
+	background-color: #842b00;
+	color: white;
+}
 .front-header{
 	min-width: 1000px;
-	width: inherit;
 	background-color: #842b00;
 }
 .front-header label[id="title"]{
@@ -82,8 +90,9 @@ input{
 	position: relative;
 	min-width: 1000px;
 	width: 100%;
-	min-height: 83vh;
+	/*min-height: 60vh;*/
 	height: auto;
+	/*background-color: pink;*/
 }
 .content{
 	position: relative;
@@ -91,13 +100,20 @@ input{
 	min-width: 900px;
 	width: 90vw;
 	padding: 1em;
-	height: 100%;
+	height: auto;
+	/*background-color: red;*/
 }
 #headerImg{
 	position: relative;
 	background-color: #eee;
 	align-items: center;
 	height: 20em;
+}
+#contentImg{
+	position: relative;
+	background-color: #eee;
+	align-items: center;
+	height: 10em;
 }
 
 .content-area{
@@ -106,26 +122,32 @@ input{
 	/*background-color: gray;*/
 	/*min-width: inherit;*/
 	min-width: 900px;
-	width: inherit;
-	height: 20em;
+	/*height: 37em;*/
 }
 .content-area label[class="title"]{
 	position: relative;
 	top: 0.5em;
+	/*bottom: 1em;*/
 	color: white;
 	padding: 0.25em 2em;
 	font-weight: 600;
 	font-size: 1.4em;
-	background: -webkit-linear-gradient(#bb3d00,#842b00);
-	background: -o-linear-gradient(#bb3d00,#842b00);
-	background: -moz-linear-gradient(#bb3d00,#842b00);
-	background: linear-gradient(#bb3d00,#842b00);
+	background-color: #842b00;
 }
 
 .content-area label[class="sub-title"]{
 	position: relative;
+	margin: 0 auto;
 	top: 0.5em;
 	font-size: 1.2em;
+}
+.content-area label[class="sub-price"]{
+	position: relative;
+	margin: 0 auto;
+	top: 0.5em;
+	font-size: 1em;
+	color: red;
+	font-weight: 600;
 }
 
 .area-block{
@@ -134,18 +156,22 @@ input{
 	min-width: 900px;
 	width: inherit;
 	height: auto;
-	/*background-color: gray;*/
+	/*background-color: green;*/
 }
 .area-block ul{
 	position: relative;
 	min-width: inherit;
 	width: inherit;
-	top: 1em;
+	height: auto;
+	top: 0.5em;
+	/*background-color: red;*/
 }
 .area-block ul li{
+	position: relative;
 	min-width: 120px;
 	width: 12vw;
-	padding: 1.5em 3vw;
+	padding: 1.2em 3vw;
+	height: auto;
 	/*background-color: orange;*/
 }
 .area-block ul li:hover{
@@ -153,6 +179,8 @@ input{
 }
 
 .area-block ul li div[class="img"]{
+	position: relative;
+	margin: 0 auto;
 	min-width: 120px;
 	min-height: 120px;
 	width: 12vw;
@@ -164,9 +192,9 @@ input{
 }
 
 #footer{
-	position: relative;
-	bottom: -2em;
-	padding: 0.7em;
+	position: fixed;
+	bottom: 0;
+	padding: 0.7em 0;
 	color: white;
 	text-align: center;
 	background-color: #666;
@@ -178,7 +206,7 @@ input{
 .login-form{
 	position: relative;
 	margin: 1em auto;
-	width: 320px;
+	width: 360px;
 	height: auto;
 	padding: 1em;
 	border-color: #eee;
@@ -186,6 +214,7 @@ input{
 	border-width: 0.1em;
 	border-radius: 0.5em; 
 	text-align: center;
+	background-color: #eee;
 }
 .login-form label[class="title"]{
 	font-size: 1.5em;
@@ -195,9 +224,17 @@ input{
 .login-form form{
 	padding: 0.5em 0;
 }
+.backend-login form{
+	position: relative;
+	top: 1em;
+	padding: 0.5em 1.5em;
+}
 .login-form form input[type="text"],
 .login-form form input[type="email"],
-.login-form form input[type="password"]{
+.login-form form input[type="password"],
+.backend-login form input[type="text"],
+.backend-login form input[type="email"],
+.backend-login form input[type="password"]{
 	margin-top: 0.3em;
 	margin-bottom: 0.3em;
 	padding: 0.3em;
@@ -240,10 +277,78 @@ input{
 .btn-second:hover{
 	background-color: #666;
 }
+.btn-green{
+	background-color: #00a600;
+	color: white;
+}
+.btn-green:hover{
+	background-color: #00bb00;
+}
+.btn-block{
+	position: relative;
+	top: 0.7em;
+	padding-bottom: 0.5em;
+}
+/*---------------------------*/
+.backend-header{
+	background-color: #444;
+}
+.backend-header nav ul a:hover{
+	background-color: #666;
+}
+.backend-color{
+	color: #444;
+}
+.backend-login{
+	position: relative;
+	margin: 0 auto;
+	top: 2em;
+	width: 400px;
+	height: 300px;
+	border-color: #bbb;
+	border-width: 0.1em;
+	border-style: solid;
+	background-color: white;
+	text-align: center;
+}
+.backend-login div[class="back-title"]{
+	position: relative;
+	width: inherit;
+	font-size: 1.5em;
+	font-weight: 600;
+	color: white;
+	text-align: center;
+	padding: 0.5em 0;
+	height: auto;
+	background-color: #444;
+}
+.backend-login label[class="back-info"]{
+	position: relative;
+	top: 0.5em;
+	font-size: 1.3em;
+}
+#total-title{
+	font-size: 1.5em;
+	font-weight: 600;
+	margin-right: 0.7em;
+}
+#total-btn{
+	position: relative;
+	top: -0.1em;
+	padding: 0.25em 1em;
+}
+#backend-title-area{
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+#backend-content-area{
+
+}
 /*---------------------------*/
 button a{
 	text-decoration: none;
 	color: inherit;
+	font-size: inherit;
 }
 .half{
 	width: 49%;
