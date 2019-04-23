@@ -361,6 +361,30 @@ table tr:nth-child(even){
 #backend-content-area{
 
 }
+#backend-user-title{
+	position: relative;
+	height: 2.7em;
+	/*background-color: gray;*/
+}
+#backend-user-title img{
+	height: inherit;
+}
+#backend-user-title label{
+	position: relative;
+	left: 0.5em;
+	top: -0.5em;
+	font-size: 1.5em;
+	font-weight: 600;
+	color: #444;
+}
+#backend-user-info{
+	position: relative;
+	padding: 0.3em 1em;
+	top: 0.5em;
+	line-height: 2.3em;
+	font-size: 1.1em;
+	width: 480px;
+}
 #backend-form-photo{
 	position: relative;
 	top: 1em;

@@ -51,25 +51,26 @@ class Auth{
 		'".$data['address']."', CURRENT_TIME())";
 		if($this->mysql->SQL_Query("INSERT",$sql)){
 			$this->main->Alert("門市新增成功(編號：".$sid.")");
-			$this->main->myUrl("dashboard/shop.php");
+			$this->main->myUrl("dashboard/shops.php");
 		}
 	}
 	function editShop($data){
 		$sql = "UPDATE `shops` SET `name`='".$data['name']."',`zone_id`='".$data['zone_id']."',`phone_id`='".$data['phone_id']."',`phone`='".$data['phone']."',`address`='".$data['address']."' WHERE sid='".$data['sid']."'";
 		if($this->mysql->SQL_Query("UPDATE",$sql)){
 			$this->main->Alert("門市資料修改成功(編號：".$data['sid'].")");
-			$this->main->myUrl("dashboard/shop.php");
+			$this->main->myUrl("dashboard/shops.php");
 		}
 	}
 	function deleteData($type,$id){
 		if($type == "shops"){
 			$sql = "UPDATE `shops` SET `isActive` = 0 WHERE `sid`='".$id."'";
-		}else if($sheet == "users"){
+		}else if($type == "users"){
 			$sql = "UPDATE `users` SET `isActive` = 0 WHERE `uid`='".$id."'";
 		}
 		if($this->mysql->SQL_Query("UPDATE",$sql)){
 			$this->main->Alert("資料刪除成功(編號：".$id.")");
-			if($type == "shops") $this->main->myUrl("dashboard/shop.php");
+			if($type == "shops") $this->main->myUrl("dashboard/shops.php");
+			if($type == "users") $this->main->myUrl("dashboard/users.php");
 		}
 	}
 }

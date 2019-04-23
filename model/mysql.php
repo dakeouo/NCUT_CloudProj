@@ -43,7 +43,7 @@ class Mysql{
 	}
 	function userCheck($type,$account,$password=null){
 		if($type == "users"){
-			$sql = "SELECT uid, username, password FROM users WHERE email='".$account."' AND isActive=1";
+			$sql = "SELECT uid, username, password FROM users WHERE email='".$account."' AND uid <> 'A00000' AND isActive=1";
 		}else if($type == "shops"){
 			$sql = "SELECT sid, name, password FROM shops WHERE sid='".$account."' AND isActive=1";
 		}
@@ -93,8 +93,15 @@ class Mysql{
 
 	function getData($name,$id=null){
 		switch ($name) {
+			case 'users':
+				if($id){
+					$sql = "SELECT `uid`, `username`, `sex`, `phone`, `email`, `add_at`,`edit_at` FROM `users` WHERE `uid` = '".$id."' AND isActive = 1";
+				}else{
+					$sql = "SELECT `uid`, `username`, `sex`, `phone`, `email`, `add_at` FROM `users` WHERE `uid` <> 'A00000' AND isActive = 1";
+				}
+				break;
 			case 'shops':
-				if($id) $sql = "SELECT `sid`, `name`, `zone_id`, `phone_id`, `phone`, `address` FROM `shops` WHERE `sid`='".$id."'";
+				if($id) $sql = "SELECT `sid`, `name`, `zone_id`, `phone_id`, `phone`, `address` FROM `shops` WHERE `sid`='".$id."' AND isActive = 1";
 				else{
 					$sql = "SELECT `shops`.sid, `shops`.name,`zone`.name AS zone,`shops`.phone_id,`shops`.phone,`shops`.address FROM `shops` JOIN `zone` ON `shops`.zone_id = `zone`.zone_id WHERE `sid` <> 'S0000' AND isActive = 1";
 				}

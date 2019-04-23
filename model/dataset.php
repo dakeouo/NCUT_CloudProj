@@ -25,12 +25,47 @@ class Dataset{
 			}
 		}
 	}
+	function getUserData(){
+		$result = $this->mysql->getData("users");
+		if($result == -1){
+			echo '<tr><td colspan="6">目前無會員資料。</td></tr>';
+		}else{
+			foreach($result as $row) {
+				if($row['sex'] == 0) $row['sex'] = '男';
+				else if($row['sex'] == 1) $row['sex'] = '女';
+				else if($row['sex'] == 2) $row['sex'] = '不願透漏';
+				echo '<tr>';
+				echo '<td>'.$row['uid'].'</td>';
+				echo '<td>'.$row['username'].'</td>';
+				echo '<td>'.$row['sex'].'</td>';
+				echo '<td>'.$row['phone'].'</td>';
+				echo '<td>'.$row['email'].'</td>';
+				echo '<td>'.$row['add_at'].'</td>';
+				echo '<td><a href="viewuser.php?uid='.$row['uid'].'" id="total-btn" class="btn btn-primary">';
+				echo '詳細</a></td>';
+				echo '</tr>';
+			}
+		}
+	}
 	function getShopSingleData($sid){
 		$result = $this->mysql->getData("shops",$sid);
 		if($result == -1){
 			$this->main->Alert("查無該店家資料(編號：".$sid.")");
 			$this->main->goBack();
 		}else{
+			return $result;
+		}
+	}
+	function getUserSingleData($uid){
+		$result = $this->mysql->getData("users",$uid);
+		if($result == -1){
+			$this->main->Alert("查無該會員資料(編號：".$uid.")");
+			$this->main->goBack();
+		}else{
+			if($result[0]['sex'] == 0) $result[0]['sex'] = '男';
+			else if($result[0]['sex'] == 1) $result[0]['sex'] = '女';
+			else if($result[0]['sex'] == 2) $result[0]['sex'] = '不願透漏';
+
 			return $result;
 		}
 	}
