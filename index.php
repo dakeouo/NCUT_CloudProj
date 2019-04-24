@@ -47,11 +47,11 @@
 	$(function() {
 		var item = parseInt($("#item1").attr("value")/5);
 		if($("#item1").attr("value")%5) item++;
-		var h = item*15.8 + 5;
+		var h = item*18.8 + 5;
     	$("#area1").css("height", h+"em");
     	item = parseInt($("#item2").attr("value")/5);
 		if($("#item2").attr("value")%5) item++;
-		var h = item*15.8 + 5;
+		var h = item*18.8 + 5;
     	$("#area2").css("height", h+"em");
 	});
 </script>

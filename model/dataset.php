@@ -79,5 +79,29 @@ class Dataset{
 		}
 		echo '</select>';
 	}
+	function getProductType($type_id=null){
+		$result = $this->mysql->getData("pTypes",$type_id);
+		if($result == -1){
+			if($type_id){
+				$this->main->Alert("查無該類別編號(編號：".$type_id.")");
+				$this->main->goBack();
+			}else echo '<tr><td colspan="4">目前無類別資料。</td></tr>';
+		}else{
+			if($type_id){
+				$value = $result[0]['name']; return $value;
+			}else{
+				foreach($result as $row) {
+					echo '<tr>';
+					echo '<td>'.$row['type_id'].'</td>';
+					echo '<td>'.$row['name'].'類</td>';
+					echo '<td><a href="ptype.php?id='.$row['type_id'].'" id="total-btn" class="btn btn-primary">';
+					echo '修改</a></td>';
+					echo '<td><a href="delData.php?type=ptypes&id='.$row['type_id'].'" id="total-btn" class="btn btn-red">';
+					echo '刪除</a></td>';
+					echo '</tr>';
+				}
+			}
+		}
+	}
 }
 ?>

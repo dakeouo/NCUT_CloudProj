@@ -33,10 +33,15 @@ class Mysql{
 	function ItemisExist($type,$name){
 		if($type == "shops"){
 			$sql = "SELECT sid, name FROM shops WHERE name='".$name."' AND isActive=1 LIMIT 0,1";
+		}else if($type == "ptypes"){
+			$sql = "SELECT `type_id`,`name` FROM `product_type` WHERE `isActive` = 1 AND name='".$name."' LIMIT 0,1";
 		}
 		$result = $this->conn->query($sql);
 		if ($result->num_rows > 0){
-			if($row = $result->fetch_assoc()) return $row["sid"];
+			if($row = $result->fetch_assoc()){
+				if($type == "shops") return $row["sid"];
+				else if($type == "ptypes") return $row["type_id"];
+			}
 		}else{
 			return false;
 		}
@@ -75,6 +80,9 @@ class Mysql{
 			case 'products':
 				$varName = 'product_last_id'; 
 				$lab = 'P'; $len = 6;  break;
+			case 'ptypes':
+				$varName = 'ptype_last_id'; 
+				$lab = 'C'; $len = 2;  break;
 			default:
 				$varName = null;  break;
 		}
@@ -108,6 +116,10 @@ class Mysql{
 				break;
 			case 'zones':
 				$sql = "SELECT `zone_id`,`name` FROM `zone` WHERE 1";
+				break;
+			case 'pTypes':
+				if($id) $sql = "SELECT `type_id`,`name` FROM `product_type` WHERE `isActive` = 1 AND `type_id` = '".$id."'";
+				else $sql = "SELECT `type_id`,`name` FROM `product_type` WHERE `isActive` = 1";
 				break;
 			default:
 				# code...

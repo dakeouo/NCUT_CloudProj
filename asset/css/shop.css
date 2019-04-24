@@ -417,12 +417,35 @@ table tr:nth-child(even){
 #backend-form-input form input[type="text"],
 #backend-form-input form input[type="tel"],
 #backend-form-input form input[type="file"],
+.hide-ptype-form form input[type="text"],
 #backend-form-input select{
 	margin-top: 0.3em;
 	margin-bottom: 0.3em;
 	padding: 0.3em;
 	font-size: 0.9em;
 	font-family: inherit;
+}
+#hide-form{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: inherit;
+	height: 100%;
+	z-index: 1;
+	background-color: rgba(0,0,0,0.5);
+}
+.hide-ptype-form{
+	position: relative;
+	margin: 10vh auto;
+	padding: 30px 50px;
+	width: 320px;
+	/*height: 150px;*/
+	height: auto;
+	background-color: #eee;
+}
+.hide-ptype-form form{
+	line-height: 2.3em;
+	font-size: 1em;
 }
 /*---------------------------*/
 button a{

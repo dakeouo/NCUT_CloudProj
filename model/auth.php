@@ -40,7 +40,7 @@ class Auth{
 		'".$data['password']."','".$data['sex']."','".$data['phone']."',
 		'".$data['email']."', CURRENT_TIME())";
 		if($this->mysql->SQL_Query("INSERT",$sql)){
-			$this->main->Alert("會員新增成功");
+			$this->main->Alert("會員新增成功(編號：".$sid.")");
 			$this->main->myUrl();
 		}
 	}
@@ -54,6 +54,14 @@ class Auth{
 			$this->main->myUrl("dashboard/shops.php");
 		}
 	}
+	function addpType($name){
+		$sid = $this->mysql->getNumber("ptypes");
+		$sql = "INSERT INTO product_type (type_id,name)VALUES ('".$sid."','".$name."')";
+		if($this->mysql->SQL_Query("INSERT",$sql)){
+			$this->main->Alert("商品類別新增成功(編號：".$sid.")");
+			$this->main->myUrl("dashboard/ptype.php");
+		}
+	}
 	function editShop($data){
 		$sql = "UPDATE `shops` SET `name`='".$data['name']."',`zone_id`='".$data['zone_id']."',`phone_id`='".$data['phone_id']."',`phone`='".$data['phone']."',`address`='".$data['address']."' WHERE sid='".$data['sid']."'";
 		if($this->mysql->SQL_Query("UPDATE",$sql)){
@@ -61,16 +69,26 @@ class Auth{
 			$this->main->myUrl("dashboard/shops.php");
 		}
 	}
+	function editpType($id,$name){
+		$sql = "UPDATE `product_type` SET `name`='".$name."' WHERE `type_id`='".$id."'";
+		if($this->mysql->SQL_Query("UPDATE",$sql)){
+			$this->main->Alert("商品類別修改成功(編號：".$id.")");
+			$this->main->myUrl("dashboard/ptype.php");
+		}
+	}
 	function deleteData($type,$id){
 		if($type == "shops"){
 			$sql = "UPDATE `shops` SET `isActive` = 0 WHERE `sid`='".$id."'";
 		}else if($type == "users"){
 			$sql = "UPDATE `users` SET `isActive` = 0 WHERE `uid`='".$id."'";
+		}else if($type == "ptypes"){
+			$sql = "UPDATE `product_type` SET `isActive` = 0 WHERE `type_id`='".$id."'";
 		}
 		if($this->mysql->SQL_Query("UPDATE",$sql)){
 			$this->main->Alert("資料刪除成功(編號：".$id.")");
 			if($type == "shops") $this->main->myUrl("dashboard/shops.php");
 			if($type == "users") $this->main->myUrl("dashboard/users.php");
+			if($type == "ptypes") $this->main->myUrl("dashboard/ptype.php");
 		}
 	}
 }

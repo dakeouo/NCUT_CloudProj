@@ -33,7 +33,7 @@
 	$(function() {
 		var item = parseInt($("#item1").attr("value")/5);
 		if($("#item1").attr("value")%5) item++;
-		var h = item*17.8 + 5;
+		var h = item*21.8 + 5;
     	$("#area1").css("height", h+"em");
 	});
 </script>

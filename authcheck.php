@@ -62,6 +62,24 @@ switch ($mode) {
 		);
 		$auth->editShop($data);
 		break;
+	case 'back-ptype-edit':
+		$chName = $auth->mysql->ItemisExist("ptypes",$_POST['name']);
+		if($chName && ($chName != $_POST['type_id'])){
+			$auth->main->Alert("此類別名稱已存在(編號：".$chName.")");
+			$auth->main->goBack();
+			break;
+		}
+		$auth->editpType($_POST['type_id'],$_POST['name']);
+		break;
+	case 'back-ptype-add':
+		$chName = $auth->mysql->ItemisExist("ptypes",$_POST['name']);
+		if($chName && ($chName != $_POST['type_id'])){
+			$auth->main->Alert("此類別名稱已存在(編號：".$chName.")");
+			$auth->main->goBack();
+			break;
+		}
+		$auth->addpType($_POST['name']);
+		break;
 	default:
 		# code...
 		break;
