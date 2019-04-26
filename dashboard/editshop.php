@@ -14,7 +14,7 @@
 			</div>
 			<div id="backend-content-area">
 				<div id="backend-form-photo"><div>
-					<img src="../asset/img/test/shop_default.png">
+					<img src="<?php echo $dataset->main->myImg(null,"shops"); ?>">
 				</div></div>
 				<div id="backend-form-input">
 					<?php $data = $dataset->getShopSingleData($_GET['sid']);?>

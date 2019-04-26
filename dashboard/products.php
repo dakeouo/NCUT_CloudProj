@@ -23,11 +23,20 @@
 						<th>單價</th>
 						<th>修改</th>
 					</tbody>
-					<!-- <?php $dataset->getShopData(); ?> -->
+					<?php $coun = $dataset->getProductData(); ?>
 				</table>
 			</div>
+			<input type="hidden" name="" id="coun" value="<?php echo $coun; ?>">
 		</div>
 	</div>
 	<?php include_once "../temp/footer.php" ?>
 </body>
+<script>
+	$(function() {
+		var item = parseInt($("#coun").attr("value"));
+		if(item < 8) item = 0;
+		var h = 40 + (item-8)*4.38;
+    	$("#backend-content-area").css("height", h+"em");
+	});
+</script>
 </html>

@@ -35,12 +35,15 @@ class Mysql{
 			$sql = "SELECT sid, name FROM shops WHERE name='".$name."' AND isActive=1 LIMIT 0,1";
 		}else if($type == "ptypes"){
 			$sql = "SELECT `type_id`,`name` FROM `product_type` WHERE `isActive` = 1 AND name='".$name."' LIMIT 0,1";
+		}else if($type == "products"){
+			$sql = "SELECT `pid`,`name` FROM `products` WHERE `isActive` = 1 AND name='".$name."' LIMIT 0,1";
 		}
 		$result = $this->conn->query($sql);
 		if ($result->num_rows > 0){
 			if($row = $result->fetch_assoc()){
 				if($type == "shops") return $row["sid"];
 				else if($type == "ptypes") return $row["type_id"];
+				else if($type == "ptypes") return $row["pid"];
 			}
 		}else{
 			return false;
@@ -112,6 +115,12 @@ class Mysql{
 				if($id) $sql = "SELECT `sid`, `name`, `zone_id`, `phone_id`, `phone`, `address` FROM `shops` WHERE `sid`='".$id."' AND isActive = 1";
 				else{
 					$sql = "SELECT `shops`.sid, `shops`.name,`zone`.name AS zone,`shops`.phone_id,`shops`.phone,`shops`.address FROM `shops` JOIN `zone` ON `shops`.zone_id = `zone`.zone_id WHERE `sid` <> 'S0000' AND isActive = 1";
+				}
+				break;
+			case 'products':
+				if($id) $sql = "SELECT pid, name, type_id, path, price, discribe FROM `products` WHERE isActive = 1 AND `pid`='".$id."'";
+				else{
+					$sql = "SELECT `products`.pid, `products`.name,`product_type`.`name` AS type,`products`.name,`products`.path,`products`.price FROM `products` JOIN `product_type` ON `products`.`type_id` = `product_type`.`type_id` WHERE `products`.isActive = 1";
 				}
 				break;
 			case 'zones':

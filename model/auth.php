@@ -62,6 +62,14 @@ class Auth{
 			$this->main->myUrl("dashboard/ptype.php");
 		}
 	}
+	function addProduct($data){
+		$pid = $this->mysql->getNumber("products");
+		$sql = "INSERT INTO products (pid, name, type_id, price, discribe)VALUES ('".$pid."','".$data['name']."','".$data['type_id']."','".$data['price']."','".$data['discribe']."')";
+		if($this->mysql->SQL_Query("INSERT",$sql)){
+			$this->main->Alert("商品新增成功(編號：".$pid.")");
+			$this->main->myUrl("dashboard/products.php");
+		}
+	}
 	function editShop($data){
 		$sql = "UPDATE `shops` SET `name`='".$data['name']."',`zone_id`='".$data['zone_id']."',`phone_id`='".$data['phone_id']."',`phone`='".$data['phone']."',`address`='".$data['address']."' WHERE sid='".$data['sid']."'";
 		if($this->mysql->SQL_Query("UPDATE",$sql)){
@@ -76,6 +84,13 @@ class Auth{
 			$this->main->myUrl("dashboard/ptype.php");
 		}
 	}
+	function editProduct($data){
+		$sql = "UPDATE `products` SET `name`='".$data['name']."',`type_id`='".$data['type_id']."',`price`='".$data['price']."',`discribe`='".$data['discribe']."' WHERE pid='".$data['pid']."'";
+		if($this->mysql->SQL_Query("UPDATE",$sql)){
+			$this->main->Alert("商品資料修改成功(編號：".$data['pid'].")");
+			$this->main->myUrl("dashboard/products.php");
+		}
+	}
 	function deleteData($type,$id){
 		if($type == "shops"){
 			$sql = "UPDATE `shops` SET `isActive` = 0 WHERE `sid`='".$id."'";
@@ -83,12 +98,15 @@ class Auth{
 			$sql = "UPDATE `users` SET `isActive` = 0 WHERE `uid`='".$id."'";
 		}else if($type == "ptypes"){
 			$sql = "UPDATE `product_type` SET `isActive` = 0 WHERE `type_id`='".$id."'";
+		}else if($type == "products"){
+			$sql = "UPDATE `products` SET `isActive` = 0 WHERE `pid`='".$id."'";
 		}
 		if($this->mysql->SQL_Query("UPDATE",$sql)){
 			$this->main->Alert("資料刪除成功(編號：".$id.")");
 			if($type == "shops") $this->main->myUrl("dashboard/shops.php");
 			if($type == "users") $this->main->myUrl("dashboard/users.php");
 			if($type == "ptypes") $this->main->myUrl("dashboard/ptype.php");
+			if($type == "products") $this->main->myUrl("dashboard/products.php");
 		}
 	}
 }

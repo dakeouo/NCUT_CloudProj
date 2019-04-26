@@ -10,10 +10,15 @@ class Main{
 		echo "<script>history.go(-1)</script>";
 	}
 	function myUrl($url=null){
-		// $front = "http://192.168.0.164/cloudfinal/";
 		echo "<script type='text/javascript'>";
 		echo "window.location.href='".$GLOBALS['baseUrl'].$url."'";
 		echo "</script>"; 
+	}
+	function myImg($name=null,$type){
+		if($name == null){
+			return $GLOBALS['baseUrl'].$GLOBALS['photoPath'].$GLOBALS['photoDef'][$type];
+		}
+		else return $GLOBALS['baseUrl'].$GLOBALS['photoPath'].$name;
 	}
 }
 ?>

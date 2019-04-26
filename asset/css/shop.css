@@ -197,7 +197,26 @@ table tr:nth-child(even){
 	border-color: #ddd;
 	border-style: solid;
 }
-
+.table-img{
+	position: relative;
+	margin: 0 auto;
+	width: 3em;
+	height: 3em;
+	align-items: center;
+	overflow: hidden;
+}
+.table-img div{
+	position: relative;
+	margin: 0 auto;
+	left: -1.5em;
+	width: 6em;
+	height: inherit;
+	align-items: center;
+}
+.table-img div img{
+	align-self: center;
+	height: inherit;
+}
 #footer{
 	position: fixed;
 	bottom: 0;

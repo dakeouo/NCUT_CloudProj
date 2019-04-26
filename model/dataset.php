@@ -47,10 +47,41 @@ class Dataset{
 			}
 		}
 	}
+	function getProductData(){
+		$result = $this->mysql->getData("products");
+		if($result == -1){
+			echo '<tr><td colspan="6">目前無商品資料。</td></tr>';
+			return 0;
+		}else{
+			$coun = 0;
+			foreach($result as $row) {
+				echo '<tr>';
+				echo '<td>'.$row['pid'].'</td>';
+				echo '<td align="center"><div class="table-img"><div><img src="'.$this->main->myImg($row['path'],"products").'"></div></div></td>';
+				echo '<td>'.$row['name'].'</td>';
+				echo '<td>'.$row['type'].'類</td>';
+				echo '<td style="color: red;">NT$'.$row['price'].'</td>';
+				echo '<td><a href="editproduct.php?pid='.$row['pid'].'" id="total-btn" class="btn btn-primary">';
+				echo '修改</a></td>';
+				echo '</tr>';
+				$coun++;
+			}
+			return $coun;
+		}
+	}
 	function getShopSingleData($sid){
 		$result = $this->mysql->getData("shops",$sid);
 		if($result == -1){
 			$this->main->Alert("查無該店家資料(編號：".$sid.")");
+			$this->main->goBack();
+		}else{
+			return $result;
+		}
+	}
+	function getProductSingleData($pid){
+		$result = $this->mysql->getData("products",$pid);
+		if($result == -1){
+			$this->main->Alert("查無該店家資料(編號：".$pid.")");
 			$this->main->goBack();
 		}else{
 			return $result;
@@ -75,6 +106,16 @@ class Dataset{
 		foreach($result as $row) {
 			echo '<option value='.$row['zone_id'];
 			if($zone == $row['zone_id']) echo " selected ";
+			echo '>'.$row['name'].'</option>';
+		}
+		echo '</select>';
+	}
+	function getpType($type=null){
+		$result = $this->mysql->getData("pTypes");
+		echo '<select name="type_id">';
+		foreach($result as $row) {
+			echo '<option value='.$row['type_id'];
+			if($type == $row['type_id']) echo " selected ";
 			echo '>'.$row['name'].'</option>';
 		}
 		echo '</select>';

@@ -80,6 +80,37 @@ switch ($mode) {
 		}
 		$auth->addpType($_POST['name']);
 		break;
+	case 'back-product-add':
+		$chName = $auth->mysql->ItemisExist("products",$_POST['name']);
+		if($chName){
+			$auth->main->Alert("此商品名稱已存在(編號：".$chName.")");
+			$auth->main->goBack();
+			break;
+		}
+		$data = array(
+			'name' => $_POST['name'],
+			'type_id' => $_POST['type_id'],
+			'price' => $_POST['price'],
+			'discribe' => $_POST['discribe']
+		);
+		$auth->addProduct($data);
+		break;
+	case 'back-product-edit':
+		$chName = $auth->mysql->ItemisExist("products",$_POST['name']);
+		if($chName){
+			$auth->main->Alert("此商品名稱已存在(編號：".$chName.")");
+			$auth->main->goBack();
+			break;
+		}
+		$data = array(
+			'pid' => $_POST['pid'],
+			'name' => $_POST['name'],
+			'type_id' => $_POST['type_id'],
+			'price' => $_POST['price'],
+			'discribe' => $_POST['discribe']
+		);
+		$auth->editProduct($data);
+		break;
 	default:
 		# code...
 		break;
