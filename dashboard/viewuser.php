@@ -25,7 +25,7 @@
 					電子郵件：<?php echo $data[0]['email']; ?><br />
 					會員加入時間：<?php echo $data[0]['add_at']; ?><br />
 					資料修改時間：<?php echo $data[0]['edit_at']; ?><br />
-					<input type="button" name="button" class="btn btn-second third" value="重置會員密碼" onclick="">
+					<input type="button" name="button" class="btn btn-second third" value="重置會員密碼" onclick="javascript:location.href='../method/resetPwd.php?type=users&id=<?php echo $data[0]['uid'];?>'">
 					<input type="button" name="button" class="btn btn-red third" value="刪除會員資料" onclick="javascript:location.href='../method/delData.php?type=users&id=<?php echo $data[0]['uid'];?>'">
 				</div>
 			</div>

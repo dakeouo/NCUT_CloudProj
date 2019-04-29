@@ -89,6 +89,13 @@ class Auth{
 			$this->main->myUrl("dashboard/products.php");
 		}
 	}
+	function editUserData($data){
+		$sql = "UPDATE `users` SET `username`='".$data['username']."',`sex`='".$data['sex']."',`phone`='".$data['phone']."',`email`='".$data['email']."' WHERE uid='".$data['uid']."'";
+		if($this->mysql->SQL_Query("UPDATE",$sql)){
+			$this->main->Alert("個人資料修改成功(編號：".$data['uid'].")");
+			$this->main->myUrl("member.php");
+		}
+	}
 	function deleteData($type,$id){
 		if($type == "shops"){
 			$sql = "UPDATE `shops` SET `isActive` = 0 WHERE `sid`='".$id."'";

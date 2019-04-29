@@ -3,7 +3,7 @@
 	<nav>
 		<ul>
 			<?php 
-			echo '<li><a href="#" id="cart">店家：'.$_SESSION['shopName'].'</a></li>';
+			echo '<li><a href="viewInfo.php" id="cart">店家：'.$_SESSION['shopName'].'</a></li>';
 			if($_SESSION['shopId'] == "S0000") echo '<li><a href="shops.php">店家管理</a></li>'; 
 			?>
 			<li><a href="#">訂單管理</a></li>

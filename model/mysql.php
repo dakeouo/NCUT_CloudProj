@@ -37,13 +37,16 @@ class Mysql{
 			$sql = "SELECT `type_id`,`name` FROM `product_type` WHERE `isActive` = 1 AND name='".$name."' LIMIT 0,1";
 		}else if($type == "products"){
 			$sql = "SELECT `pid`,`name` FROM `products` WHERE `isActive` = 1 AND name='".$name."' LIMIT 0,1";
+		}else if($type == "users"){
+			$sql = "SELECT `uid`,`email` FROM `users` WHERE `isActive` = 1 AND email='".$name."' LIMIT 0,1";
 		}
 		$result = $this->conn->query($sql);
 		if ($result->num_rows > 0){
 			if($row = $result->fetch_assoc()){
 				if($type == "shops") return $row["sid"];
 				else if($type == "ptypes") return $row["type_id"];
-				else if($type == "ptypes") return $row["pid"];
+				else if($type == "products") return $row["pid"];
+				else if($type == "users") return $row["uid"];
 			}
 		}else{
 			return false;
@@ -54,6 +57,8 @@ class Mysql{
 			$sql = "SELECT uid, username, password FROM users WHERE email='".$account."' AND uid <> 'A00000' AND isActive=1";
 		}else if($type == "shops"){
 			$sql = "SELECT sid, name, password FROM shops WHERE sid='".$account."' AND isActive=1";
+		}else if($type == "users-uid"){
+			$sql = "SELECT uid, username, password FROM users WHERE uid='".$account."' AND isActive=1";
 		}
 		$result = $this->conn->query($sql);
 		if ($result->num_rows > 0){
@@ -67,6 +72,10 @@ class Mysql{
 					else if($type == "shops") return array(
 						"id" => $row["sid"],
 						"name" => $row["name"],
+					);
+					else if($type == "users-uid") return array(
+						"id" => $row["uid"],
+						"name" => $row["username"],
 					);
 				}
 			}
@@ -167,6 +176,30 @@ class Mysql{
 			}
 		}else $value = -1;
 		return $value;
+	}
+	function updatePasswd($type,$id,$md5_pwd,$isRoot=FALSE){
+		switch ($type) {
+			case 'shops':
+				$sql = 'UPDATE `shops` SET `password`="'.$md5_pwd.'" WHERE `sid`="'.$id.'"';
+				break;
+			case 'users':
+				$sql = 'UPDATE `users` SET `password`="'.$md5_pwd.'" WHERE `uid`="'.$id.'"';
+				break;
+			default:
+				# code...
+				break;
+		}
+		if (!($this->conn->query($sql) === TRUE)){
+			$this->main->Alert("Error updating record: " . $this->conn->error);
+		}else{
+			$this->main->Alert("修改密碼成功(編號：".$id.")");
+			if($isRoot){
+				$this->main->goBack();
+			}else{
+				if($type=='shops') $this->main->myUrl("dashboard/logout.php");
+				else if($type=='users') $this->main->myUrl("logout.php");
+			}
+		}
 	}
 }
 ?>

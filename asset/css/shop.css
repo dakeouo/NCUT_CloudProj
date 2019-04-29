@@ -480,11 +480,21 @@ table tr:nth-child(even){
 #backend-form-input form input[type="tel"],
 #backend-form-input form input[type="file"],
 .hide-ptype-form form input[type="text"],
+#backend-content-area form input[type="text"],
+#backend-content-area form input[type="password"],
 #backend-form-input select{
 	margin-top: 0.3em;
 	margin-bottom: 0.3em;
 	padding: 0.3em;
 	font-size: 0.9em;
+	font-family: inherit;
+}
+#backend-content-area form input[type="email"]{
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	padding: 0.3em;
+	font-size: 0.9em;
+	width: 18em;
 	font-family: inherit;
 }
 #hide-form{

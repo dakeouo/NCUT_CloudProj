@@ -9,7 +9,7 @@ switch ($mode) {
 			$auth->main->Alert("密碼不符合規定(8-15位元，字母、數字各1)");
 			$auth->main->goBack();
 			break;
-		}else if($auth->mysql->userCheck($_POST['email'])){
+		}else if($auth->mysql->userCheck("users",$_POST['email'])){
 			$auth->main->Alert("帳號已存在");
 			$auth->main->goBack();
 			break;
@@ -22,6 +22,22 @@ switch ($mode) {
 			'email' => $_POST['email']
 		);
 		$auth->register($data);
+		break;
+	case 'user-edit':
+		$chName = $auth->mysql->ItemisExist("users",$_POST['email']);
+		if($chName && ($chName != $_POST['uid'])){
+			$auth->main->Alert("帳號已存在");
+			$auth->main->goBack();
+			break;
+		}
+		$data = array(
+			'uid' => $_POST['uid'],
+			'username' => $_POST['username'],
+			'sex' => $_POST['sex'],
+			'phone' => $_POST['phone'],
+			'email' => $_POST['email']
+		);
+		$auth->editUserData($data);
 		break;
 	case 'login':
 		$auth->login("users",$_POST['email'],$_POST['password']);
@@ -114,6 +130,33 @@ switch ($mode) {
 			'discribe' => $_POST['discribe']
 		);
 		$auth->editProduct($data);
+		break;
+	case 'passwd-change':
+		$sid = $_POST['sid'];
+		$type = $_POST['type'];
+		$oldP = $_POST['old-passwd'];
+		$newP = $_POST['new-passwd'];
+		$chPasswd = '/^.*(?=.{8,15})(?=.*\d)(?=.*[a-zA-Z]).*$/';
+		$user = $auth->mysql->userCheck($type,$sid,$oldP);
+		if(!$user){
+			$auth->main->Alert("查無此帳戶");
+			$auth->main->goBack();
+		}else if($user == -1){
+			$auth->main->Alert("您輸入的密碼錯誤");
+			$auth->main->goBack();
+		}else{
+			if($newP == $oldP){
+				$auth->main->Alert("新密碼與舊密碼相同");
+				$auth->main->goBack();
+			}else if(!preg_match($chPasswd,$newP)){
+				$auth->main->Alert("密碼不符合規定(8-15位元，字母、數字各1)");
+				$auth->main->goBack();
+			}else{
+				$newP = md5($newP,FALSE);
+				if($type == "users-uid") $type = "users";
+				$auth->mysql->updatePasswd($type,$sid,$newP);
+			}
+		}
 		break;
 	default:
 		# code...

@@ -2,22 +2,40 @@
 <?php include_once "../model/dataset.php"; $dataset = new Dataset();?>
 <html>
 <head>
-	<?php $title = "門市資料修改";  include_once "temp/header.php"; ?>
+	<?php $title = "資料修改";  include_once "temp/header.php"; ?>
 </head>
 <body>
 	<?php include_once "temp/banner.php" ?>
+	<?php if($_GET){ ?>
+		<div id="hide-form">
+			<?php if(isset($_GET['mod'])){ ?>
+			<div class="hide-ptype-form">
+				<label id="total-title">修改密碼</label>
+				<a href="editInfo.php" id="total-btn" class="btn btn-second">返回</a>
+				<form method="POST" action="../method/chData.php">
+					<input type="hidden" name="sid" value="<?php echo $_SESSION['shopId']; ?>">
+					<input type="hidden" name="mode" value="passwd-change">
+					<input type="hidden" name="type" value="shops">
+					舊密碼：<input type="password" name="old-passwd" required><br />
+					新密碼：<input type="password" name="new-passwd" required><br />
+					<input type="submit" name="submit" class="btn btn-primary fit" value="確定修改" onclick="">
+				</form>
+			</div>
+			<?php } ?>
+		</div>
+	<?php } ?>
 	<div class="container">
 		<div class="content">
 			<div id="backend-title-area">
 				<label id="total-title"><?php echo $title;?></label>
-				<a href="shops.php" id="total-btn" class="btn btn-second">返回</a>
+				<a href="viewInfo.php" id="total-btn" class="btn btn-second">返回</a>
 			</div>
 			<div id="backend-content-area">
 				<div id="backend-form-photo"><div>
 					<img src="<?php echo $dataset->main->myImg(null,"shops"); ?>">
 				</div></div>
 				<div id="backend-form-input">
-					<?php $data = $dataset->getShopSingleData($_GET['sid']);?>
+					<?php $data = $dataset->getShopSingleData($_SESSION['shopId']);?>
 					<form method="POST" action="../method/chData.php">
 						<input type="hidden" name="mode" value="back-shop-edit">
 						<input type="hidden" name="sid" value="<?php echo $data[0]['sid'] ?>">
@@ -28,9 +46,8 @@
 						<input type="tel" name="phone" placeholder="電話" value="<?php echo $data[0]['phone'] ?>" required><br />
 						營業時間：<?php $dataset->getTimeOption("start_at",$data[0]['start_at']); ?> - <?php $dataset->getTimeOption("end_at",$data[0]['end_at']); ?><br />
 						地址：<input type="text" name="address" style="width: 450px" value="<?php echo $data[0]['address'] ?>" required><br />
-						<input type="submit" name="submit" class="btn btn-primary third" value="確定修改">
-						<input type="button" name="button" class="btn btn-second third" value="重置店家密碼" onclick="javascript:location.href='../method/resetPwd.php?type=shops&id=<?php echo $data[0]['sid'];?>'">
-						<input type="button" name="button" class="btn btn-red third" value="刪除門市資料" onclick="javascript:location.href='../method/delData.php?type=shops&id=<?php echo $data[0]['sid'];?>'">
+						<input type="submit" name="submit" class="btn btn-primary half" value="確定修改">
+						<input type="button" name="button" class="btn btn-second half" value="修改密碼" onclick="javascript:location.href='./editInfo.php?mod=1'">
 					</form>
 				</div>
 			</div>

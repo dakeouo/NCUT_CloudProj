@@ -5,6 +5,24 @@
 </head>
 <body>
 	<?php include_once "temp/banner.php" ?>
+	<?php if($_GET){ ?>
+		<div id="hide-form">
+			<?php if(isset($_GET['mod'])){ ?>
+			<div class="hide-ptype-form">
+				<label id="total-title">修改密碼</label>
+				<a href="member.php" id="total-btn" class="btn btn-second">返回</a>
+				<form method="POST" action="method/chData.php">
+					<input type="hidden" name="sid" value="<?php echo $_SESSION['uid']; ?>">
+					<input type="hidden" name="mode" value="passwd-change">
+					<input type="hidden" name="type" value="users-uid">
+					舊密碼：<input type="password" name="old-passwd" required><br />
+					新密碼：<input type="password" name="new-passwd" required><br />
+					<input type="submit" name="submit" class="btn btn-primary fit" value="確定修改" onclick="">
+				</form>
+			</div>
+			<?php } ?>
+		</div>
+	<?php } ?>
 	<div class="container">
 		<div class="content">
 			<div id="backend-title-area">
@@ -24,9 +42,9 @@
 					電子郵件：<?php echo $data[0]['email']; ?><br />
 					會員加入時間：<?php echo $data[0]['add_at']; ?><br />
 					資料修改時間：<?php echo $data[0]['edit_at']; ?><br />
-					<input type="button" name="button" class="btn btn-primary third" value="修改會員資料" onclick="">
-					<input type="button" name="button" class="btn btn-second third" value="修改密碼" onclick="">
-					<input type="button" name="button" class="btn btn-red third" value="刪除會員資料" onclick="javascript:location.href='delData.php?type=users&id=<?php echo $data[0]['uid'];?>'">
+					<input type="button" name="button" class="btn btn-primary third" value="修改會員資料" onclick="javascript:location.href='./editmember.php'">
+					<input type="button" name="button" class="btn btn-second third" value="修改密碼" onclick="javascript:location.href='./member.php?mod=1'">
+					<input type="button" name="button" class="btn btn-red third" value="刪除會員資料" onclick="javascript:location.href='method/delData.php?type=users&id=<?php echo $data[0]['uid'];?>'">
 				</div>
 			</div>
 		</div>
