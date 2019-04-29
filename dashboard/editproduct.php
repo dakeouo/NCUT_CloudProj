@@ -18,7 +18,7 @@
 					<img src="<?php echo $dataset->main->myImg($data[0]['path'],"products"); ?>">
 				</div></div>
 				<div id="backend-form-input">
-					<form method="POST" action="../authcheck.php">
+					<form method="POST" action="../method/chData.php">
 						<input type="hidden" name="mode" value="back-product-edit">
 						<input type="hidden" name="pid" value="<?php echo $data[0]['pid'] ?>">
 						商品名稱：<input type="text" name="name" value="<?php echo $data[0]['name'] ?>" required><br />
@@ -26,7 +26,7 @@
 						價格：NT$<input type="text" name="price" style="width: 50px" value="<?php echo $data[0]['price'] ?>" required><br />
 						敘述：<input type="text" name="discribe" value="<?php echo $data[0]['discribe'] ?>" style="width: 450px" ><br />
 						<input type="submit" name="submit" class="btn btn-primary half" value="確定修改">
-						<input type="button" name="button" class="btn btn-red half" value="刪除商品資料" onclick="javascript:location.href='delData.php?type=products&id=<?php echo $data[0]['pid'];?>'">
+						<input type="button" name="button" class="btn btn-red half" value="刪除商品資料" onclick="javascript:location.href='../method/delData.php?type=products&id=<?php echo $data[0]['pid'];?>'">
 					</form>
 				</div>
 			</div>

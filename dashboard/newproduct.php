@@ -17,7 +17,7 @@
 					<img src="<?php echo $dataset->main->myImg(null,"products"); ?>">
 				</div></div>
 				<div id="backend-form-input">
-					<form method="POST" action="../authcheck.php">
+					<form method="POST" action="../method/chData.php">
 						<input type="hidden" name="mode" value="back-product-add">
 						商品名稱：<input type="text" name="name" required><br />
 						類別：<?php $dataset->getpType(); ?><br />

@@ -1,5 +1,5 @@
 <?php
-include_once "model/auth.php";
+include_once "../model/auth.php";
 $auth = new Auth();
 $mode = $_POST['mode'];
 switch ($mode) {
@@ -41,6 +41,8 @@ switch ($mode) {
 			'zone_id' => $_POST['zone_id'],
 			'phone_id' => $_POST['phone_id'],
 			'phone' => $_POST['phone'],
+			'start_at' => $_POST['start_at'],
+			'end_at' => $_POST['end_at'],
 			'address' => $_POST['address']
 		);
 		$auth->addShop($data);
@@ -58,6 +60,8 @@ switch ($mode) {
 			'zone_id' => $_POST['zone_id'],
 			'phone_id' => $_POST['phone_id'],
 			'phone' => $_POST['phone'],
+			'start_at' => $_POST['start_at'],
+			'end_at' => $_POST['end_at'],
 			'address' => $_POST['address']
 		);
 		$auth->editShop($data);

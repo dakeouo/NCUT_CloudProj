@@ -6,7 +6,7 @@
 	<div class="backend-login">
 		<div class="back-title">NCUT TeaShop</div>
 		<label class="back-info">後臺管理登入</label>
-		<form method="POST" action="../authcheck.php">
+		<form method="POST" action="../method/chData.php">
 				<input type="hidden" name="mode" value="back-login">
 				<input type="text" name="shopId" id="shopId" placeholder="店家編號" required>
 				<input type="password" name="password" id="password" placeholder="密碼(預設為店家編號)" required>

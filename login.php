@@ -7,7 +7,7 @@
 	<div class="container">
 		<div class="login-form">
 			<label class="title">NCUT TeaShop</label>
-			<form method="POST" action="authcheck.php">
+			<form method="POST" action="method/chData.php">
 				<input type="hidden" name="mode" value="login">
 				<input type="email" name="email" id="email" placeholder="電子信箱" required>
 				<input type="password" name="password" id="password" placeholder="密碼" required>

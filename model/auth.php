@@ -46,9 +46,7 @@ class Auth{
 	}
 	function addShop($data){
 		$sid = $this->mysql->getNumber("shops");
-		$sql = "INSERT INTO shops (sid, name, password, zone_id, phone_id, phone, address, add_at)VALUES ('".$sid."','".$data['name']."',
-		'".md5($sid,FALSE)."','".$data['zone_id']."','".$data['phone_id']."','".$data['phone']."',
-		'".$data['address']."', CURRENT_TIME())";
+		$sql = "INSERT INTO shops (sid, name, password, zone_id, phone_id, phone, address, add_at, end_at)VALUES ('".$sid."','".$data['name']."','".md5($sid,FALSE)."','".$data['zone_id']."','".$data['phone_id']."','".$data['phone']."','".$data['address']."','".$data['start_at']."','".$data['end_at']."')";
 		if($this->mysql->SQL_Query("INSERT",$sql)){
 			$this->main->Alert("門市新增成功(編號：".$sid.")");
 			$this->main->myUrl("dashboard/shops.php");
@@ -71,7 +69,7 @@ class Auth{
 		}
 	}
 	function editShop($data){
-		$sql = "UPDATE `shops` SET `name`='".$data['name']."',`zone_id`='".$data['zone_id']."',`phone_id`='".$data['phone_id']."',`phone`='".$data['phone']."',`address`='".$data['address']."' WHERE sid='".$data['sid']."'";
+		$sql = "UPDATE `shops` SET `name`='".$data['name']."',`zone_id`='".$data['zone_id']."',`phone_id`='".$data['phone_id']."',`phone`='".$data['phone']."',`address`='".$data['address']."',`start_at`='".$data['start_at']."',`end_at`='".$data['end_at']."' WHERE sid='".$data['sid']."'";
 		if($this->mysql->SQL_Query("UPDATE",$sql)){
 			$this->main->Alert("門市資料修改成功(編號：".$data['sid'].")");
 			$this->main->myUrl("dashboard/shops.php");

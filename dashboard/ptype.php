@@ -13,7 +13,7 @@
 				<label id="total-title">修改類別名稱</label>
 				<a href="ptype.php" id="total-btn" class="btn btn-second">返回</a>
 				<?php $value = $dataset->getProductType($_GET['id']); ?>
-				<form method="POST" action="../authcheck.php">
+				<form method="POST" action="../method/chData.php">
 					<input type="hidden" name="type_id" value="<?php echo $_GET['id']; ?>">
 					<input type="hidden" name="mode" value="back-ptype-edit">
 					類別編號：<?php echo str_pad($_GET['id'],2,'0',STR_PAD_LEFT); ?><br />

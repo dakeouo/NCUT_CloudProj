@@ -18,7 +18,7 @@
 				</div></div>
 				<div id="backend-form-input">
 					<?php $data = $dataset->getShopSingleData($_GET['sid']);?>
-					<form method="POST" action="../authcheck.php">
+					<form method="POST" action="../method/chData.php">
 						<input type="hidden" name="mode" value="back-shop-edit">
 						<input type="hidden" name="sid" value="<?php echo $data[0]['sid'] ?>">
 						門市編號：<?php echo $data[0]['sid']; ?><br />
@@ -26,10 +26,11 @@
 						行政區：<?php $dataset->getZone($data[0]['zone_id']); ?><br />
 						電話：<input type="text" name="phone_id" placeholder="區碼" style="width: 50px" value="<?php echo $data[0]['phone_id'] ?>" required>-
 						<input type="tel" name="phone" placeholder="電話" value="<?php echo $data[0]['phone'] ?>" required><br />
+						營業時間：<?php $dataset->getTimeOption("start_at",$data[0]['start_at']); ?> - <?php $dataset->getTimeOption("end_at",$data[0]['end_at']); ?><br />
 						地址：<input type="text" name="address" style="width: 450px" value="<?php echo $data[0]['address'] ?>" required><br />
 						<input type="submit" name="submit" class="btn btn-primary third" value="確定修改">
 						<input type="button" name="button" class="btn btn-second third" value="重置店家密碼" onclick="">
-						<input type="button" name="button" class="btn btn-red third" value="刪除門市資料" onclick="javascript:location.href='delData.php?type=shops&id=<?php echo $data[0]['sid'];?>'">
+						<input type="button" name="button" class="btn btn-red third" value="刪除門市資料" onclick="javascript:location.href='../method/delData.php?type=shops&id=<?php echo $data[0]['sid'];?>'">
 					</form>
 				</div>
 			</div>

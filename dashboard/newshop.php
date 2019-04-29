@@ -17,12 +17,13 @@
 					<img src="<?php echo $dataset->main->myImg(null,"shops"); ?>">
 				</div></div>
 				<div id="backend-form-input">
-					<form method="POST" action="../authcheck.php">
+					<form method="POST" action="../method/chData.php">
 						<input type="hidden" name="mode" value="back-shop-add">
 						門市名稱：<input type="text" name="name" required><br />
 						行政區：<?php $dataset->getZone(); ?><br />
 						電話：<input type="text" name="phone_id" placeholder="區碼" style="width: 50px" required>-
 						<input type="tel" name="phone" placeholder="電話" required><br />
+						營業時間：<?php $dataset->getTimeOption("start_at"); ?> - <?php $dataset->getTimeOption("end_at"); ?><br />
 						地址：<input type="text" name="address" style="width: 450px" required><br />
 						<input type="submit" name="submit" class="btn btn-green half" value="確定新增">
 					</form>

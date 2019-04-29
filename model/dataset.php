@@ -16,8 +16,8 @@ class Dataset{
 				echo '<tr>';
 				echo '<td>'.$row['sid'].'</td>';
 				echo '<td>'.$row['name'].'門市</td>';
-				echo '<td>'.$row['zone'].'</td>';
 				echo '<td>('.$row['phone_id'].')'.$row['phone'].'</td>';
+				echo '<td>'.$row['start_at'].' - '.$row['end_at'].'</td>';
 				echo '<td>'.$row['address'].'</td>';
 				echo '<td><a href="editshop.php?sid='.$row['sid'].'" id="total-btn" class="btn btn-primary">';
 				echo '修改</a></td>';
@@ -100,6 +100,18 @@ class Dataset{
 			return $result;
 		}
 	}
+	function getTimeOption($name,$value=null){
+		echo '<select name="'.$name.'">';
+		for ($i=0;$i<24;$i++) { 
+			for($j=0;$j<60;$j+=10) {
+				$time = str_pad($i,2,'0',STR_PAD_LEFT).':'.str_pad($j,2,'0',STR_PAD_LEFT);
+				echo '<option value="'.$time.'" ';
+				if($value == $time) echo "selected";
+				echo ' >'.$time.'</option>';
+			}
+		}
+		echo '</select>';
+	}
 	function getZone($zone=null){
 		$result = $this->mysql->getData("zones");
 		echo '<select name="zone_id">';
@@ -143,6 +155,131 @@ class Dataset{
 				}
 			}
 		}
+	}
+	function getTypeRank($rank){
+		$PT = $this->mysql->getData("pTypes");
+		$coun = 0;
+		if($PT == -1){
+			echo '<tr><td colspan="4">目前無任何飲料類別。</td></tr>';
+			$coun++;
+		}else{
+			foreach($PT as $row){ 
+				$result = $this->mysql->getRank("products",$row['type_id'],$rank);
+				if($result == -1){
+					echo '<tr><td colspan="4">目前無 <b>'.$row['name'].'類 </b>飲品排名。</td></tr>';
+					$coun++;
+				}else{
+					for ($i=0;$i<$rank;$i++){
+						echo '<tr>';
+						if($i==0) echo '<td rowspan="'.$rank.'">'.$row['name'].'</td>';
+						echo '<td';
+						if($i<3) echo ' style="color: red;"';
+						echo '>第'.($i+1).'名</td>';
+						if(isset($result[$i])){
+							echo '<td>'.$result[$i]['name'].'</td>';
+							echo '<td>'.$result[$i]['price'].'</td>';
+						}else{
+							echo '<td>-----</td>';
+							echo '<td>---</td>';
+						}
+						echo '</tr>';
+						$coun++;
+					}
+				}
+			}	
+		}
+		return $coun;
+	}
+	function getRank(){
+		$result = $this->mysql->getRank("products",null,5);
+		if($result == -1){
+				echo '<div ';
+				echo 'style="position:relative; top:2em; font-size:2em;"';
+				echo '>';
+				echo '目前無任何熱門飲品';
+				echo '</div>';
+		}else{
+			echo '<ul>';
+			for ($i=0;$i<5;$i++) { 
+				echo '<li>';
+				if(isset($result[$i])){
+					echo '<div class="img" style="background:none;"><div>';
+					echo '<img src="'.$this->main->myImg($result[$i]['path'],"products").'">';
+					echo '</div></div>';
+					echo '<label class="sub-title">'.$result[$i]['name'].'</label><br />';
+					echo '<label class="sub-price">NT$'.$result[$i]['price'].'</label>';
+				}else{
+					echo '<div class="img"></div>';
+					echo '<label class="sub-title">-----</label><br />';
+					echo '<label class="sub-price">NT$---</label>';
+				}
+				echo '</li>';
+			}
+			echo '</ul>';
+		}
+	}
+	function getProductItem(){
+		$result = $this->mysql->getData("products");
+		$coun = 0;
+		if($result == -1){
+				echo '<div ';
+				echo 'style="position:relative; top:2em; font-size:2em;"';
+				echo '>';
+				echo '目前無任何飲品資訊';
+				echo '</div>';
+			$coun = 1;
+		}else{
+			echo '<ul>';
+			foreach($result as $row) { 
+				echo '<li>';
+				echo '<div class="img" style="background:none;"><div>';
+				echo '<img src="'.$this->main->myImg($row['path'],"products").'">';
+				echo '</div></div>';
+				echo '<label class="sub-type">'.$row['type'].'類</label><br />';
+				echo '<label class="sub-title">'.$row['name'].'</label><br />';
+				echo '<label class="sub-price">NT$'.$row['price'].'</label>';
+
+				echo '<div class="btn-block">';
+				echo '<a href="" class="btn btn-primary">加入購物車</a>';
+				echo '</div>';
+				echo '</li>';
+				$coun++;
+			}
+			echo '</ul>';
+		}
+		return $coun;
+	}
+	function getShopItem(){
+		$result = $this->mysql->getRank("shops",null,-1);
+		$coun = 0;
+		if($result == -1){
+				echo '<div ';
+				echo 'style="position:relative; top:2em; font-size:2em;"';
+				echo '>';
+				echo '目前無任何據點資訊';
+				echo '</div>';
+			$coun = 1;
+		}else{
+			echo '<ul>';
+			foreach($result as $row) { 
+				echo '<li>';
+				echo '<table><tr>';
+				echo '<td width="30%"><div class="img" style="background:none;"><div>';
+				echo '<img src="'.$this->main->myImg(null,"shops").'">';
+				echo '</div></div></td>';
+				echo '<td width="70%" style="position:relative; left:1em;">';
+				echo '<label>'.$row['name'].'門市</label><br />';
+				echo '電話：('.$row['phone_id'].')'.$row['phone'].'<br />';
+				echo '地址：'.$row['address'].'<br />';
+				echo '營業時間：'.$row['start_at'].' - '.$row['end_at'].'<br />';
+				echo '</td>';
+				echo '</tr></table>';
+				echo '</li>';
+				$coun++;
+			}
+			echo '</ul>';
+		}
+		return $coun;
 	}
 }
 ?>

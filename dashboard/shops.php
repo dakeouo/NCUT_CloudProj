@@ -17,8 +17,8 @@
 					<tbody>
 						<th>店家編號</th>
 						<th>門市名稱</th>
-						<th>行政區</th>
 						<th>電話</th>
+						<th>營業時間</th>
 						<th>地址</th>
 						<th>修改</th>
 					</tbody>

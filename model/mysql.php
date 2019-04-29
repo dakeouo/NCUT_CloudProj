@@ -112,9 +112,9 @@ class Mysql{
 				}
 				break;
 			case 'shops':
-				if($id) $sql = "SELECT `sid`, `name`, `zone_id`, `phone_id`, `phone`, `address` FROM `shops` WHERE `sid`='".$id."' AND isActive = 1";
+				if($id) $sql = "SELECT `sid`, `name`, `zone_id`, `phone_id`, `phone`, `address`,`start_at`,`end_at` FROM `shops` WHERE `sid`='".$id."' AND isActive = 1";
 				else{
-					$sql = "SELECT `shops`.sid, `shops`.name,`zone`.name AS zone,`shops`.phone_id,`shops`.phone,`shops`.address FROM `shops` JOIN `zone` ON `shops`.zone_id = `zone`.zone_id WHERE `sid` <> 'S0000' AND isActive = 1";
+					$sql = "SELECT `sid`, `name`, `zone_id`, `phone_id`, `phone`, `address`,`start_at`,`end_at` FROM `shops` WHERE `sid` <> 'S0000' AND isActive = 1";
 				}
 				break;
 			case 'products':
@@ -129,6 +129,31 @@ class Mysql{
 			case 'pTypes':
 				if($id) $sql = "SELECT `type_id`,`name` FROM `product_type` WHERE `isActive` = 1 AND `type_id` = '".$id."'";
 				else $sql = "SELECT `type_id`,`name` FROM `product_type` WHERE `isActive` = 1";
+				break;
+			default:
+				# code...
+				break;
+		}
+		$result = $this->conn->query($sql);
+		$value = array();
+		if ($result->num_rows > 0){
+			while($row = mysqli_fetch_assoc($result)){
+				array_push($value,$row);
+			}
+		}else $value = -1;
+		return $value;
+	}
+	function getRank($name,$type=null,$rank){
+		switch ($name) {
+			case 'products':
+				if($type){
+					$sql = "SELECT `name`, `price`,`path` FROM `products` WHERE `type_id` = '".$type."' AND isActive = 1 AND count <> 0 ORDER BY `count` DESC LIMIT 0,".$rank;
+				}else{
+					$sql = "SELECT `name`, `price`,`path` FROM `products` WHERE  isActive = 1 ORDER BY `count` DESC LIMIT 0,".$rank;
+				}
+				break;
+			case 'shops':
+				$sql = "SELECT `sid`, `name`, `phone_id`, `phone`, `address`,`start_at`,`end_at` FROM `shops` WHERE isActive = 1";
 				break;
 			default:
 				# code...

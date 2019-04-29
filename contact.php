@@ -1,7 +1,7 @@
 <?php include_once "model/dataset.php"; $dataset = new Dataset();?>
 <html>
 <head>
-	<?php $title = "商品";  include_once "temp/header.php"; ?>
+	<?php $title = "服務據點";  include_once "temp/header.php"; ?>
 </head>
 <body>
 	<?php include_once "temp/banner.php" ?>
@@ -9,9 +9,9 @@
 		<div id="contentImg"></div>
 		<div class="content">
 			<div class="content-area" id="area1">
-				<label class="title">飲品總覽</label>
-				<div class="area-block">
-					<?php $coun = $dataset->getProductItem(); ?>
+				<label class="title">服務據點</label>
+				<div class="area-contact">
+					<?php $coun = $dataset->getShopItem(); ?>
 				</div>
 			</div>
 			<input type="hidden" id="coun" value="<?php echo $coun;?>">
@@ -21,9 +21,9 @@
 </body>
 <script>
 	$(function() {
-		var item = parseInt($("#coun").attr("value")/5);
+		var item = parseInt($("#coun").attr("value")/2);
 		//if($("#item1").attr("value")%5) item++;
-		var h = item*17.5 + 6;
+		var h = item*17 + 5;
     	$("#area1").css("height", h+"em");
 	});
 </script>

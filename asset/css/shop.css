@@ -52,12 +52,12 @@ table tr:nth-child(even){
 	/*overflow: hidden;*/
 	/*background-color: orange;*/
 }
-.front-header nav ul, .area-block ul{
+.front-header nav ul, .area-block ul,.area-contact ul{
 	list-style-type: none;
 	margin: 0;
   	padding: 0;
 }
-.front-header nav ul li, .area-block ul li{
+.front-header nav ul li, .area-block ul li,.area-contact ul li{
 	float: left;
 }
 .front-header nav ul a{
@@ -141,29 +141,60 @@ table tr:nth-child(even){
 	font-size: 1.4em;
 	background-color: #842b00;
 }
-
+.content-area label[class="sub-type"]{
+	position: relative;
+	margin: 0 auto;
+	color: gray;
+	top: 0.5em;
+	font-size: 0.8em;
+}
 .content-area label[class="sub-title"]{
 	position: relative;
 	margin: 0 auto;
-	top: 0.5em;
+	top: 0.2em;
 	font-size: 1.2em;
 }
 .content-area label[class="sub-price"]{
 	position: relative;
 	margin: 0 auto;
-	top: 0.5em;
+	top: 0.3em;
 	font-size: 1em;
 	color: red;
 	font-weight: 600;
 }
-
-.area-block{
+.area-block,
+.area-contact{
 	position: relative;
-	top: 1em;
+	top: 1.5em;
 	min-width: 900px;
 	width: inherit;
 	height: auto;
-	/*background-color: green;*/
+}
+.area-contact ul{
+	position: relative;
+	min-width: inherit;
+	width: inherit;
+	height: auto;
+	top: 0.5em;
+	background-color: red;
+}
+.area-contact ul li{
+	position: relative;
+	width: 40%;
+	padding: 1.2em 3vw;
+	height: auto;
+	/*background-color: orange;*/
+}
+.area-contact ul li table tr td{
+	text-align: left;
+	line-height: 2em;
+}
+.area-contact ul li table tr td label{
+	position: relative;
+	top: -0.3em;
+	font-size: 1.5em;
+	font-weight: 600;
+	color: #842b00;
 }
 .area-block ul{
 	position: relative;
@@ -171,7 +202,6 @@ table tr:nth-child(even){
 	width: inherit;
 	height: auto;
 	top: 0.5em;
-	/*background-color: red;*/
 }
 .area-block ul li{
 	position: relative;
@@ -185,17 +215,30 @@ table tr:nth-child(even){
 	background-color: #fff3cc;
 }
 
-.area-block ul li div[class="img"]{
+.area-block ul li div[class="img"],
+.area-contact ul li div[class="img"]{
 	position: relative;
 	margin: 0 auto;
-	min-width: 120px;
-	min-height: 120px;
-	width: 12vw;
-	height: 12vw;
+	width: 9em;
+	height: 9em;
 	background-color: #eee;
 	border-width: 0.1em;
 	border-color: #ddd;
 	border-style: solid;
+	overflow: hidden;
+}
+.area-block ul li div[class="img"] div,
+.area-contact ul li div[class="img"] div{
+	position: relative;
+	left: -4.5em;
+	width: 18em;
+	height: 100%;
+	text-align: center;
+}
+.area-block ul li div[class="img"] div img,
+.area-contact ul li div[class="img"] div img{
+	margin: 0 auto;
+	height: 100%;
 }
 .table-img{
 	position: relative;
