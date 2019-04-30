@@ -1,8 +1,15 @@
+<?php include_once "model/mysql.php"; $mysql = new Mysql();?>
 <header class="front-header">
 	<label id="title"><a href="index.php">NCUT TeaShop</a></label>
 	<nav>
 		<ul>
-			<li><a href="#" id="cart">購物車</a></li>
+			<?php 
+			if($mysql->getCartStatus($_SESSION['cart_token']) == 1){
+				echo '<li><a href="order.php" id="cart">購物車</a></li>';
+			}else{
+				echo '<li><a href="cart.php" id="cart">購物車</a></li>';
+			}
+			?>
 			<li><a href="product.php">商品</a></li>
 			<li><a href="contact.php">服務據點</a></li>
 			<?php if(isset($_SESSION['uid'])){

@@ -23,6 +23,7 @@ class Auth{
 			if($type == "users"){
 				$_SESSION['uid'] = $user['id'];
 				$_SESSION['username'] = $user['name'];
+				$_SESSION['cart_token'] = $this->mysql->cartUser($user['id'],$_SESSION['cart_token']);
 				$this->main->Alert("登入成功");
 				$this->main->myUrl();
 			}else if($type == "shops"){

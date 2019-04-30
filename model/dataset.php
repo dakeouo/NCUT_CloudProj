@@ -132,6 +132,26 @@ class Dataset{
 		}
 		echo '</select>';
 	}
+	function getShop($sid=null){
+		$result = $this->mysql->getData("shops");
+		echo '<select name="shop_id" style="width: 8em;">';
+		foreach($result as $row) {
+			echo '<option value='.$row['sid'];
+			if($sid == $row['sid']) echo " selected ";
+			echo '>'.$row['name'].'</option>';
+		}
+		echo '</select>';
+	}
+	function getIntervalTime(){
+		echo '<select name="val_Time" style="width: 10em;">';
+		for($i=0;$i<24;$i++){
+			$start = str_pad($i,2,'0',STR_PAD_LEFT).':00';
+			$end = str_pad(($i+1),2,'0',STR_PAD_LEFT).':00';
+			echo '<option value="'.$start.'&nbsp;-&nbsp;'.$end.'">';
+			echo $start.'-'.$end.'</option>';
+		}
+		echo '</select>';
+	}
 	function getProductType($type_id=null){
 		$result = $this->mysql->getData("pTypes",$type_id);
 		if($result == -1){
@@ -240,7 +260,7 @@ class Dataset{
 				echo '<label class="sub-price">NT$'.$row['price'].'</label>';
 
 				echo '<div class="btn-block">';
-				echo '<a href="" class="btn btn-primary">加入購物車</a>';
+				echo '<a href="chCart.php?method=add&pid='.$row['pid'].'" class="btn btn-primary">加入購物車</a>';
 				echo '</div>';
 				echo '</li>';
 				$coun++;
@@ -278,6 +298,41 @@ class Dataset{
 				$coun++;
 			}
 			echo '</ul>';
+		}
+		return $coun;
+	}
+	function getCart($token){
+		$result = $this->mysql->getCartItem($token);
+		$coun = 0;
+		if($result == -1){
+			echo '<tr><td colspan="6">目前購物車無項目。</td></tr>';
+			$coun++;
+		}else{
+			foreach($result as $row) { 
+				echo '<tr>';
+				echo '<td>'.$row['pid'].'</td>';
+				echo '<td>'.$row['name'].'</td>';
+				echo '<td style="color:red;">NT$';
+				echo '<font id="price['.$coun.']">'.$row['price'].'</font></td>';
+				echo '<td>';
+				echo '<input type="hidden" name="itemId['.$coun.']" value="'.$row['pid'].'">';
+				echo '<select name="unit['.$coun.']" id="unit['.$coun.']" onChange="sub_total('.$coun.')">';
+				for($j=0;$j<10;$j++){ 
+					echo '<option value="'.($j+1).'">'.($j+1).'</option>';
+				}
+				echo '</select>';
+				echo '</td>';
+				echo '<td style="color:red; font-weight:600;">NT$';
+				echo '<font id="sub-total['.$coun.']"></font></td>';
+				echo '<td>';
+				echo '<a href="chCart.php?method=remove&pid='.$row['pid'].'" class="btn btn-red">刪除</a>';
+				echo '</td>';
+				echo '</tr>';
+				$coun++;
+			}
+		}
+		for($i=0;$i<5;$i++){ 
+			
 		}
 		return $coun;
 	}

@@ -14,7 +14,7 @@ class Main{
 		echo "window.location.href='".$GLOBALS['baseUrl'].$url."'";
 		echo "</script>"; 
 	}
-	function myImg($name=null,$type){
+	function myImg($name=null,$type=null){
 		if($name == null){
 			return $GLOBALS['baseUrl'].$GLOBALS['photoPath'].$GLOBALS['photoDef'][$type];
 		}

@@ -5,4 +5,3 @@
 	&nbsp;&nbsp;|&nbsp;&nbsp; 
 	National Chin-Yi University of Techology
 </footer>
-<script type='text/javascript' src='asset/js/Auth.js'> </script>

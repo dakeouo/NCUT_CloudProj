@@ -319,6 +319,71 @@ table tr:nth-child(even){
 #back-table th{
 	background-color: #444;
 }
+#schedule-bar{
+	position: relative;
+	width: inherit;
+	height: 2em;
+	/*background-color: yellow;*/
+}
+.step-label{
+	/*position: relative;*/
+	padding: 0.1em 1em;
+	font-size: 1em;
+	color: white;
+	background-color: #ff6000;
+}
+.step-name{
+	position: relative;
+	top: 0.1em;
+	left: 0.1em;
+	padding: 0.1em 0.2em;
+	font-size: 1.2em;
+}
+#schedule-bar img{
+	position: relative;
+	top: 0.25em;
+	padding: 0 0.3em;
+	height: 1.3em;
+}
+.step-gray{
+	background-color: #888;
+}
+.step-name-gary{
+	color: #888;
+}
+#cart-content{
+	position: relative;
+	width: inherit;
+	top: 1em;
+	padding: 1em 0;
+	font-size: 1em;
+}
+#cart-price{
+	float: right;
+	padding: 0.5em 1em;
+}
+.price-red{
+	font-size: 22px; 
+	color: red; 
+	font-weight: 600;
+}
+#order-msg{
+	position: relative;
+	height: 1.5em;
+	padding: 0.2em 0.5em;
+	font-weight: 600;
+	font-size: 1.2em;
+	background-color: #eee;
+	border-style: solid;
+	border-width: 0.1em;
+	border-color: #ccc;
+}
+#order-form{
+	position: relative;
+	top: 0.5em;
+	padding: 1em;
+	font-weight: 2em;
+}
 /*-----button-----*/
 .btn{
 	text-decoration: none;
@@ -482,6 +547,9 @@ table tr:nth-child(even){
 .hide-ptype-form form input[type="text"],
 #backend-content-area form input[type="text"],
 #backend-content-area form input[type="password"],
+#order-form form input[type="text"],
+#order-form form input[type="phone"],
+#order-form form select,
 #backend-form-input select{
 	margin-top: 0.3em;
 	margin-bottom: 0.3em;
