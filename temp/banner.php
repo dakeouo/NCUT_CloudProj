@@ -4,7 +4,7 @@
 	<nav>
 		<ul>
 			<?php 
-			if($mysql->getCartStatus($_SESSION['cart_token']) == 1){
+			if($cartModel->getCartStatus($_SESSION['cart_token']) == 1){
 				echo '<li><a href="order.php" id="cart">購物車</a></li>';
 			}else{
 				echo '<li><a href="cart.php" id="cart">購物車</a></li>';

@@ -1,11 +1,13 @@
 <?php
 include_once "mysql.php";
+include_once "CartModel.php";
 class Dataset{
 	public $mysql=null;
 	public $main=null;
 	function __construct(){
 		$this->mysql = new Mysql();
 		$this->main = $this->mysql->main;
+		$this->cartModel = new CartModel();
 	}
 	function getShopData(){
 		$result = $this->mysql->getData("shops");
@@ -302,7 +304,7 @@ class Dataset{
 		return $coun;
 	}
 	function getCart($token){
-		$result = $this->mysql->getCartItem($token);
+		$result = $this->cartModel->getCartItem($token);
 		$coun = 0;
 		if($result == -1){
 			echo '<tr><td colspan="6">目前購物車無項目。</td></tr>';

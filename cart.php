@@ -20,7 +20,6 @@
 			</div>
 			<div id="cart-content">
 				以下是您目前所選擇的品項：
-				<a href="" class="btn btn-second">清空購物車</a>
 			<form method="POST" action="order.php">
 				<div style="position: relative;top: 1em;">
 					<table>

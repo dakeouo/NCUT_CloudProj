@@ -59,13 +59,15 @@ class Mysql{
 			$sql = "SELECT sid, name, password FROM shops WHERE sid='".$account."' AND isActive=1";
 		}else if($type == "users-uid"){
 			$sql = "SELECT uid, username, password FROM users WHERE uid='".$account."' AND isActive=1";
+		}else if($type == "users-cart"){
+			$sql = "SELECT uid, username, phone, password FROM users WHERE uid='".$account."' AND isActive=1";
 		}
 		$result = $this->conn->query($sql);
 		if ($result->num_rows > 0){
 			if($row = $result->fetch_assoc()){
-				if(md5($password,FALSE) != $row["password"]) return -1;
+				if(md5($password,FALSE) != $row["password"] AND $type != "users-cart") return -1;
 				else{
-					if($type == "users") return array(
+					if($type == "users" or $type == "users-uid") return array(
 						"id" => $row["uid"],
 						"name" => $row["username"],
 					);
@@ -73,9 +75,10 @@ class Mysql{
 						"id" => $row["sid"],
 						"name" => $row["name"],
 					);
-					else if($type == "users-uid") return array(
+					else if($type == "users-cart") return array(
 						"id" => $row["uid"],
 						"name" => $row["username"],
+						"phone" => $row["phone"]
 					);
 				}
 			}
@@ -201,67 +204,6 @@ class Mysql{
 			}
 		}
 	}
-	function cartItemisExist($token,$pid){
-		$sql = "SELECT token, pid FROM cart_info WHERE `token`='".$token."' AND `pid` = '".$pid."'";
-		$result = $this->conn->query($sql);
-		$value = array();
-		if ($result->num_rows > 0){
-			return true;
-		}else return false;
-	}
-	function getCartItem($token){
-		$sql = "SELECT `products`.`pid`,`products`.`name`,`products`.`price` FROM `cart_info` JOIN `products` ON `cart_info`.`pid` = `products`.`pid` WHERE `cart_info`.`token` = '".$token."' ORDER BY `products`.`pid`";
-		//$this->main->Alert($sql);
-		$result = $this->conn->query($sql);
-		$value = array();
-		if ($result->num_rows > 0){
-			while($row = mysqli_fetch_assoc($result)){
-				array_push($value,$row);
-			}
-		}else $value = -1;
-		return $value;
-	}
-	function getOrder($token){
-		$sql = "SELECT item,total FROM carts WHERE `token`='".$token."'";
-		$result = $this->conn->query($sql);
-		if ($result->num_rows > 0){
-			if($row = mysqli_fetch_assoc($result)){
-				return array(
-					'item' => $row['item'],
-					'total' => $row['total']
-				);
-			}
-		}else return -1;	
-	}
-	function delCart($token){
-		$sql = "DELETE FROM `cart_info` WHERE `token` = '".$token."'";
-		$this->SQL_Query("DELETE",$sql);
-		$sql = "DELETE FROM `carts` WHERE `token` = '".$token."'";
-		$this->SQL_Query("DELETE",$sql);
-	}
-	function cartUser($user,$token){
-		$sql = "SELECT token FROM carts WHERE `users`='".$user."'";
-		$result = $this->conn->query($sql);
-		if ($result->num_rows > 0){
-			if($row = mysqli_fetch_assoc($result)){
-				$new_token = $row['token'];
-				$this->delCart($token);
-				return $new_token;
-			}
-		}else{
-			$sql = 'UPDATE `carts` SET `users`="'.$user.'" WHERE `token`="'.$token.'"';
-			$this->SQL_Query("UPDATE",$sql);
-			return $token;
-		}
-	}
-	function getCartStatus($token){
-		$sql = "SELECT status FROM carts WHERE `token`='".$token."'";
-		$result = $this->conn->query($sql);
-		if ($result->num_rows > 0){
-			if($row = mysqli_fetch_assoc($result)){
-				return $row['status'];
-			}
-		}else return -1;
-	}
+	
 }
 ?>

@@ -1,11 +1,13 @@
 <?php
 include_once "mysql.php";
+include_once "CartModel.php";
 class Auth{
 	public $mysql=null;
 	public $main=null;
 	function __construct(){
 		$this->mysql = new Mysql();
 		$this->main = $this->mysql->main;
+		$this->cartModel = new CartModel();
 		session_start();
 	}
 	function __destruct(){
@@ -23,7 +25,7 @@ class Auth{
 			if($type == "users"){
 				$_SESSION['uid'] = $user['id'];
 				$_SESSION['username'] = $user['name'];
-				$_SESSION['cart_token'] = $this->mysql->cartUser($user['id'],$_SESSION['cart_token']);
+				$_SESSION['cart_token'] = $this->cartModel->cartUser($user['id'],$_SESSION['cart_token']);
 				$this->main->Alert("登入成功");
 				$this->main->myUrl();
 			}else if($type == "shops"){

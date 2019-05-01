@@ -369,7 +369,7 @@ table tr:nth-child(even){
 }
 #order-msg{
 	position: relative;
-	height: 1.5em;
+	height: 2.5em;
 	padding: 0.2em 0.5em;
 	font-weight: 600;
 	font-size: 1.2em;
@@ -548,7 +548,7 @@ table tr:nth-child(even){
 #backend-content-area form input[type="text"],
 #backend-content-area form input[type="password"],
 #order-form form input[type="text"],
-#order-form form input[type="phone"],
+#order-form form input[type="tel"],
 #order-form form select,
 #backend-form-input select{
 	margin-top: 0.3em;
