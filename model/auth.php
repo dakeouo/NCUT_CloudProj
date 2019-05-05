@@ -108,6 +108,8 @@ class Auth{
 			$sql = "UPDATE `product_type` SET `isActive` = 0 WHERE `type_id`='".$id."'";
 		}else if($type == "products"){
 			$sql = "UPDATE `products` SET `isActive` = 0 WHERE `pid`='".$id."'";
+		}else if($type == "orders"){
+			$sql = "UPDATE `orders` SET `isActive` = 0 WHERE `order_id`='".$id."'";
 		}
 		if($this->mysql->SQL_Query("UPDATE",$sql)){
 			$this->main->Alert("資料刪除成功(編號：".$id.")");
@@ -115,6 +117,7 @@ class Auth{
 			if($type == "users") $this->main->myUrl("dashboard/users.php");
 			if($type == "ptypes") $this->main->myUrl("dashboard/ptype.php");
 			if($type == "products") $this->main->myUrl("dashboard/products.php");
+			if($type == "orders") $this->main->myUrl("dashboard/orders.php");
 		}
 	}
 }

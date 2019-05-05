@@ -20,7 +20,7 @@
 			</div>
 			<div id="cart-content">
 				以下是您目前所選擇的品項：
-			<form method="POST" action="order.php">
+			<form name="cart" method="POST" action="order.php">
 				<div style="position: relative;top: 1em;">
 					<table>
 						<tbody>
@@ -42,7 +42,7 @@
 					</div>
 				</div>
 				<div style="position: relative; top: 2em;">
-					<input type="submit" name="submit" class="btn btn-primary fit" value="確認購買">
+					<input type="button" name="send" class="btn btn-primary fit" value="確認購買" onclick="itemUnitCheck(<?php echo $coun; ?>);">
 				</div>
 			</form>
 			</div>
@@ -80,6 +80,14 @@
 		}
 		document.getElementById("cart-total").innerHTML = total;
 		document.getElementById("ct").value = total;
+	}
+	function itemUnitCheck(coun){
+		var frm = document.forms["cart"];
+		if(coun != 0){
+			frm.submit();
+		}else{
+			alert("您尚未選購任何商品!!");
+		}
 	}
 </script>
 </html>

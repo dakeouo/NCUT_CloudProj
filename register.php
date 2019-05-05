@@ -7,7 +7,7 @@
 	<div class="container">
 		<div class="login-form">
 			<label class="title">NCUT TeaShop</label>
-			<form method="POST" action="authcheck.php">
+			<form method="POST" action="method/chData.php">
 				<input type="hidden" name="mode" value="register">
 				<input type="text" name="username" placeholder="用戶名" required>
 				<input type="password" name="password" placeholder="密碼(8-15位元，字母、數字各1)" required>

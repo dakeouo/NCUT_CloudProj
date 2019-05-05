@@ -27,7 +27,6 @@
 		<div class="content">
 			<div id="backend-title-area">
 				<label id="total-title"><?php echo $title;?></label>
-				<a href="index.php" id="total-btn" class="btn btn-second">返回</a>
 			</div>
 			<div id="backend-content-area">
 				<?php $data = $dataset->getUserSingleData($_SESSION['uid']);?>

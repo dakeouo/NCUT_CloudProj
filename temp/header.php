@@ -7,6 +7,8 @@
 include_once "model/cartModel.php"; $cartModel = new CartModel();
 if(!isset($_SESSION['cart_token'])){
 	$_SESSION['cart_token'] = md5(uniqid(""));
-	$cartModel->createCart($_SESSION['cart_token']);
+	if(isset($_SESSION['uid'])) $uid = $_SESSION['uid'];
+	else $uid = "A00000";
+	$cartModel->createCart($_SESSION['cart_token'],$uid);
 }
 ?>

@@ -11,9 +11,10 @@ class CartModel{
 	function __destruct(){
 		
 	}
-	function createCart($token){
-		$sql = "INSERT INTO `carts` (token,users)VALUES ('".$token."','A00000')";
-		if($this->mysql->SQL_Query("INSERT",$sql)) return true;
+	function createCart($token,$users="A00000"){
+		$sql = "INSERT INTO `carts` (token,users)VALUES ('".$token."','".$users."')";
+		$this->mysql->SQL_Query("INSERT",$sql);
+		//if($this->mysql->SQL_Query("INSERT",$sql)) return true;
 	}
 	function CartItem($method,$pid,$token){
 		switch ($method) {
@@ -101,10 +102,10 @@ class CartModel{
 			if($row = mysqli_fetch_assoc($result)){
 				$new_token = $row['token'];
 				if($row['status'] == 0){
-					$products = $this->mysql->getCartItem($token);
+					$products = $this->getCartItem($token);
 					if($products != -1){
 						foreach($products as $item){
-							if(!$this->mysql->cartItemisExist($new_token,$item['pid'])) $this->changeCartItemOwner($token,$new_token,$item['pid']);
+							if(!$this->cartItemisExist($new_token,$item['pid'])) $this->changeCartItemOwner($token,$new_token,$item['pid']);
 						}
 					}
 					$this->main->Alert("您剛剛所選購的商品已合併至您的購物車內!!");
@@ -140,6 +141,29 @@ class CartModel{
 			}
 		}else return -1;
 		return $value;
+	}
+	function cart2Order($orderID,$data){
+		$sql = "INSERT INTO `orders` (order_id, users, shops, person, phone, total, pick_time, add_at)VALUES ('".$orderID."','".$data['uid']."','".$data['pid']."','".$data['name']."','".$data['phone']."','".$data['total']."','".$data['val_Time']."',CURRENT_TIMESTAMP())";
+		$this->mysql->SQL_Query("INSERT",$sql);
+		$sql = "SELECT `pid`,`unit` FROM `cart_info` WHERE `token` = '".$data['token']."'";
+		$result = $this->mysql->conn->query($sql);
+		$value = array();
+		if ($result->num_rows > 0){
+			while($row = mysqli_fetch_assoc($result)){
+				array_push($value,$row);
+			}
+		}else{$this->main->Alert("無商品資料!!"); return false;}
+		foreach ($value as $item) {
+			$sql = "INSERT INTO `order_info` (order_id, pid, unit)VALUES ('".$orderID."','".$item['pid']."','".$item['unit']."')";
+			$this->mysql->SQL_Query("INSERT",$sql);
+			$sql = "UPDATE `products` SET `count`= (`count`+".$item['unit'].") WHERE `pid`='".$item['pid']."'";
+			$this->mysql->SQL_Query("UPDATE",$sql);
+		}
+		$sql = 'DELETE FROM `cart_info` WHERE `token` IN(SELECT `token` FROM `carts` WHERE `token` = "'.$data['token'].'")';
+		$this->mysql->SQL_Query("DELETE",$sql);
+		$sql = 'DELETE FROM `carts` WHERE `token`="'.$data['token'].'"';
+		$this->mysql->SQL_Query("DELETE",$sql);
+		return true;
 	}
 }
 ?>

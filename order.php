@@ -4,7 +4,7 @@
 <?php $title = "訂單資訊";  include_once "temp/header.php"; ?>
 <?php if($_POST){$cartModel->setCartItem($_SESSION['cart_token'],$_POST['itemId'],$_POST['unit'],$_POST['total']);}?>
 </head>
-<body onload="init()">
+<body>
 	<?php include_once "temp/banner.php" ?>
 	<div class="container">
 		<div id="contentImg"></div>
@@ -22,19 +22,17 @@
 			<div id="cart-content">
 				<div id="order-msg">
 					<?php 
-					if($_POST){
-						echo '訂購&nbsp;<font color="red">'.count($_POST['itemId']).'</font>&nbsp;項商品，總金額共&nbsp;<font color="red">NT$'.$_POST['total'].'</font>&nbsp;。';
-					}else{
-						$data = $cartModel->getOrder($_SESSION['cart_token']);
+					$data = $cartModel->getOrder($_SESSION['cart_token']);
 						echo '訂購&nbsp;<font color="red">'.$data['item'].'</font>&nbsp;項商品，總金額共&nbsp;<font color="red">NT$'.$data['total'].'</font>&nbsp;。';
-					}
 					$unitForItem = $cartModel->getOrderItem($_SESSION['cart_token']);
 					if($unitForItem != -1){
 						echo '<br /><font style="font-size:14px; color:#666; height:1.2em;">訂購商品：';
 						$c = 0; $totalunit = count($unitForItem);
+						$itemStr = "";
 						foreach ($unitForItem as $key) {
+							$itemStr = $itemStr.$key['name']."x".$key['unit'];
 							echo $key['name']."x".$key['unit'];
-							if($c < $totalunit-1) echo "、";
+							if($c < $totalunit-1){ $itemStr = $itemStr."、"; echo "、";}
 							$c++;
 						}
 						echo '</font>';
@@ -57,8 +55,9 @@
 						  echo '<input type="hidden" name="SQL_Name" value="'.$SQL_Name.'">';
 						  echo '<input type="hidden" name="SQL_Phone" value="'.$SQL_Phone.'">';
 						?>
-						<?php  ?>
 						<input type="hidden" name="token" value="<?php echo $_SESSION['cart_token']; ?>">
+						<input type="hidden" name="item" value="<?php echo $itemStr; ?>">
+						<input type="hidden" name="total" value="<?php echo $data['total']; ?>">
 						取貨人&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="text" name="name" style="width: 15em;" placeholder="請填寫姓名" required><br />
 						行動電話&nbsp;

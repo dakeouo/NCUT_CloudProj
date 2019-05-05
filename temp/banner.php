@@ -13,6 +13,7 @@
 			<li><a href="product.php">商品</a></li>
 			<li><a href="contact.php">服務據點</a></li>
 			<?php if(isset($_SESSION['uid'])){
+				echo '<li><a href="order_list.php">訂單總覽</a></li>';
 				echo '<li><a href="member.php" id="cart">✪ '.$_SESSION['username'].'</a></li>';
 				echo '<li><a href="logout.php">登出</a></li>';
 			}else{

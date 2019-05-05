@@ -135,6 +135,27 @@ class Mysql{
 					$sql = "SELECT `products`.pid, `products`.name,`product_type`.`name` AS type,`products`.name,`products`.path,`products`.price FROM `products` JOIN `product_type` ON `products`.`type_id` = `product_type`.`type_id` WHERE `products`.isActive = 1";
 				}
 				break;
+			case 'orders':
+				if($id) $sql = "SELECT `orders`.`order_id`,`orders`.`status`,`orders`.`person`,`orders`.`phone`,`orders`.`total`,`shops`.`name`,`orders`.`pick_time`,`orders`.`pick_at`,`orders`.`add_at`,`orders`.`finish_at` FROM `orders` JOIN `shops` ON `orders`.`shops` = `shops`.`sid` WHERE `orders`.`isActive`=1 AND `orders`.`order_id`='".$id."'";
+				else{
+					$sql = "SELECT `orders`.`order_id`,`orders`.`status`,`orders`.`person`,`orders`.`total`,`shops`.`name`,`orders`.`pick_time`,`orders`.`add_at`,`orders`.`finish_at` FROM `orders` JOIN `shops` ON `orders`.`shops` = `shops`.`sid` WHERE `orders`.`isActive`=1 AND `orders`.`status` < 3";
+				}
+				break;
+			case 'rec_orders':
+				if($id) $sql = "SELECT `orders`.`order_id`,`orders`.`status`,`orders`.`person`,`orders`.`phone`,`orders`.`total`,`shops`.`name`,`orders`.`pick_time`,`orders`.`add_at`,`orders`.`finish_at` FROM `orders` JOIN `shops` ON `orders`.`shops` = `shops`.`sid` WHERE `orders`.`isActive`=1 AND `orders`.`order_id`='".$id."'";
+				else{
+					$sql = "SELECT `orders`.`order_id`,`orders`.`status`,`orders`.`person`,`orders`.`total`,`shops`.`name`,`orders`.`pick_time`,`orders`.`add_at`,`orders`.`finish_at` FROM `orders` JOIN `shops` ON `orders`.`shops` = `shops`.`sid` WHERE `orders`.`isActive`=1 AND `orders`.`status` >= 3";
+				}
+				break;
+			case 'user_orders':
+				if($id) $sql = "SELECT `orders`.`order_id`,`orders`.`status`,`orders`.`person`,`orders`.`phone`,`orders`.`total`,`shops`.`name`,`orders`.`pick_time`,`orders`.`add_at`,`orders`.`finish_at` FROM `orders` JOIN `shops` ON `orders`.`shops` = `shops`.`sid` WHERE `orders`.`isActive`=1 AND `orders`.`order_id`='".$id."'";
+				else{
+					$sql = "SELECT `orders`.`order_id`,`orders`.`status`,`orders`.`person`,`orders`.`total`,`shops`.`name`,`orders`.`pick_time`,`orders`.`add_at`,`orders`.`finish_at` FROM `orders` JOIN `shops` ON `orders`.`shops` = `shops`.`sid` WHERE `orders`.`isActive`=1 AND `orders`.`users`='".$_SESSION['uid']."'";
+				}
+				break;
+			case 'order_info':
+				$sql = "SELECT `products`.`pid`,`products`.`name`, `order_info`.`unit`,`products`.`price` FROM `order_info` JOIN `products` ON `order_info`.`pid` = `products`.`pid` WHERE `order_info`.`order_id`='".$id."' AND `isActive`=1";
+				break;
 			case 'zones':
 				$sql = "SELECT `zone_id`,`name` FROM `zone` WHERE 1";
 				break;
@@ -203,6 +224,17 @@ class Mysql{
 				else if($type=='users') $this->main->myUrl("logout.php");
 			}
 		}
+	}
+	function setOrderStatus($oid,$status){
+		if($status == 2){
+			$sql = "UPDATE `orders` SET `status`=".$status.",`finish_at`= CURRENT_TIMESTAMP() WHERE `order_id`='".$oid."' AND `isActive`=1";
+		}else if($status == 3){
+			$sql = "UPDATE `orders` SET `status`=".$status.",`pick_at`= CURRENT_TIMESTAMP() WHERE `order_id`='".$oid."' AND `isActive`=1";
+		}else{
+			$sql = "UPDATE `orders` SET `status`=".$status." WHERE `order_id`='".$oid."' AND `isActive`=1";
+		}
+		$this->SQL_Query("UPDATE",$sql);
+		
 	}
 	
 }

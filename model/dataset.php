@@ -71,6 +71,47 @@ class Dataset{
 			return $coun;
 		}
 	}
+	function getOrderData($view=null){
+		if($view == "history") $result = $this->mysql->getData("rec_orders");
+		else if($view == "user") $result = $this->mysql->getData("user_orders");
+		else $result = $this->mysql->getData("orders");
+		if($result == -1){
+			echo '<tr><td colspan="7">目前無訂單資料。</td></tr>';
+			return 0;
+		}else{
+			$coun = 0;
+			foreach($result as $row) {
+				echo '<tr>';
+				echo '<td>'.$row['order_id'].'</td>';
+				switch ($row['status']) {
+					case 0:
+						echo '<td><font style="background:none; color:red; padding:0 0.4em;"><b>新訂單</b></font></td>';
+						break;
+					case 1:
+						echo '<td><font style="background:none; color:#aaa; padding:0 0.4em;">已確認</font></td>';
+						break;
+					case 2:
+						echo '<td><font style="background:#00bb00; color:white; padding:0 0.4em;">已完成</font></td>';
+						break;
+					case 3:
+						echo '<td><font style="background:#0080ff; color:white; padding:0 0.4em;">已取貨</font></td>';
+						break;
+					default:
+						echo '<td></td>';
+						break;
+				}
+				echo '<td>'.$row['person'].'</td>';
+				echo '<td>'.$row['total'].'</td>';
+				echo '<td>'.$row['pick_time'].'</td>';
+				echo '<td>'.$row['add_at'].'</td>';
+				echo '<td><a href="vieworder.php?oid='.$row['order_id'].'" id="total-btn" class="btn btn-primary">';
+				echo '詳細</a></td>';
+				echo '</tr>';
+				$coun++;
+			}
+			return $coun;
+		}
+	}
 	function getShopSingleData($sid){
 		$result = $this->mysql->getData("shops",$sid);
 		if($result == -1){
@@ -100,6 +141,36 @@ class Dataset{
 			else if($result[0]['sex'] == 2) $result[0]['sex'] = '不願透漏';
 
 			return $result;
+		}
+	}
+	function getOrderSingleData($order_id){
+		$result = $this->mysql->getData("orders",$order_id);
+		if($result == -1){
+			$this->main->Alert("查無該訂單資料(編號：".$order_id.")");
+			$this->main->goBack();
+		}else{
+			return $result;
+		}
+	}
+	function getOrderItemData($order_id){
+		$result = $this->mysql->getData("order_info",$order_id);
+		if($result == -1){
+			echo '<tr><td colspan="5">無商品資訊。</td></tr>';
+			return 0;
+		}else{
+			$coun = 0;
+			foreach($result as $row) {
+				echo '<tr>';
+				echo '<td>'.$row['pid'].'</td>';
+				echo '<td>'.$row['name'].'</td>';
+				echo '<td style="color: red;">NT$'.$row['price'].'</td>';
+				echo '<td>'.$row['unit'].'</td>';
+				$total = $row['price']*$row['unit'];
+				echo '<td style="color: red;"><b>NT$'.$total.'</b></td>';
+				echo '</tr>';
+				$coun++;
+			}
+			return $coun;
 		}
 	}
 	function getTimeOption($name,$value=null){
@@ -135,7 +206,7 @@ class Dataset{
 		echo '</select>';
 	}
 	function getShop($sid=null){
-		$result = $this->mysql->getData("shops");
+		$result = $this->mysql->getRank("shops",null,-1);
 		echo '<select name="shop_id" style="width: 8em;">';
 		foreach($result as $row) {
 			echo '<option value='.$row['sid'];
@@ -308,7 +379,7 @@ class Dataset{
 		$coun = 0;
 		if($result == -1){
 			echo '<tr><td colspan="6">目前購物車無項目。</td></tr>';
-			$coun++;
+			$coun = 0;
 		}else{
 			foreach($result as $row) { 
 				echo '<tr>';
@@ -332,9 +403,6 @@ class Dataset{
 				echo '</tr>';
 				$coun++;
 			}
-		}
-		for($i=0;$i<5;$i++){ 
-			
 		}
 		return $coun;
 	}

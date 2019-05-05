@@ -428,6 +428,13 @@ table tr:nth-child(even){
 .btn-red:hover{
 	background-color: #ff2d2d;
 }
+.btn-enable{
+	position: relative;
+	left: 0.3em;
+	margin-right: 0.4em;
+	background-color: #ddd;
+	color: #666;
+}
 .btn-block{
 	position: relative;
 	top: 0.7em;
@@ -592,6 +599,9 @@ button a{
 	text-decoration: none;
 	color: inherit;
 	font-size: inherit;
+}
+.fourth{
+	width: 21%;
 }
 .third{
 	width: 32%;
