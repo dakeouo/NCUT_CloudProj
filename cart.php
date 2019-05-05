@@ -51,6 +51,12 @@
 	<?php include_once "temp/footer.php" ?>
 </body>
 <script>
+	$(function() {
+		var item = parseInt($("#coun").attr("value"));
+		//if(item < 2) item = 0;
+		var h = 28 + (item-3)*2;
+    	$(".content").css("height", h+"em");
+	});
 	function init(){
 		var coun = document.getElementById("coun").value;
 		var price_item, price, sub_item, total = 0;

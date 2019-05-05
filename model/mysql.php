@@ -182,7 +182,7 @@ class Mysql{
 				if($type){
 					$sql = "SELECT `name`, `price`,`path` FROM `products` WHERE `type_id` = '".$type."' AND isActive = 1 AND count <> 0 ORDER BY `count` DESC LIMIT 0,".$rank;
 				}else{
-					$sql = "SELECT `name`, `price`,`path` FROM `products` WHERE  isActive = 1 ORDER BY `count` DESC LIMIT 0,".$rank;
+					$sql = "SELECT `name`, `price`,`path`,`count` FROM `products` WHERE  isActive = 1 ORDER BY `count` DESC LIMIT 0,".$rank;
 				}
 				break;
 			case 'shops':
@@ -236,6 +236,38 @@ class Mysql{
 		$this->SQL_Query("UPDATE",$sql);
 		
 	}
-	
+	function getSheetCount($sheet){
+		switch ($sheet) {
+			case 'users':
+				$sql = 'SELECT count(`uid`)-1 AS "count" FROM `users` WHERE `isActive` = 1';
+				break;
+			case 'products':
+				$sql = 'SELECT count(`pid`) AS "count" FROM `products` WHERE `isActive` = 1';
+				break;
+			case 'shops':
+				$sql = 'SELECT count(`sid`) AS "count" FROM `shops` WHERE `isActive` = 1';
+				break;
+			case 'orders':
+				$sql = 'SELECT count(`order_id`) AS "count" FROM `orders` WHERE `isActive` = 1';
+				break;
+			default:
+				# code...
+				break;
+		}
+		$result = $this->conn->query($sql);
+		if ($result->num_rows > 0){
+			if($row = mysqli_fetch_assoc($result)){
+				$count = $row['count'];
+				if($count < 1000) return $count;
+				else if(($count >= 1000)&&($count < 1000000)){
+					if($count > 10000){
+						return number_format(($count/1000),0)."k";
+					}else return number_format(($count/1000),1)."k";
+				}else{
+					return number_format(($count/1000000),0)."w";
+				}
+			}
+		}else return -1;
+	}
 }
 ?>
