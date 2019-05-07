@@ -22,6 +22,7 @@
 - 新增、瀏覽、修改、刪除商品資訊(含商品類別)
 - 新增、瀏覽、修改、刪除會員資訊
 - 標示訂單狀態及刪除訂單
+- 重置分店及會員密碼
 
 
 ## 網站安裝
@@ -46,13 +47,17 @@ $GLOBALS['DB_dbname'] = "YOUR DBNAME";
 ```
 
 ## 預設帳戶
-#### 店家端
-帳號為_店家編號_，密碼預設也是_店家編號_
-> **總店帳號** 帳號:_S0000_ 密碼:_S0000_
+### 店家端
+> **總店帳號** 帳號:_S0000_  密碼:_S0000_
+- 帳號為**店家編號(Sxxxx)**，密碼預設也是**店家編號(Sxxxx)**
+- 店家密碼重置後，改為**店家編號(Sxxxx)**
+
+### 顧客端
+- 顧客密碼重置後，改為**0000**
 
 ## 相關套件
 - [Font Awesome](https://fontawesome.com/)
 - [chart.js](https://www.chartjs.org/)
 
-### Designer
+## Designer
 - [Liang Jyun Hong](https://github.com/louishong)
