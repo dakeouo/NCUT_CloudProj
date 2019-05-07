@@ -7,7 +7,9 @@
 <body>
 	<?php include_once "temp/banner.php" ?>
 	<div class="container">
-		<div id="contentImg"></div>
+		<div id="contentImg">
+			<?php echo '<div><img src="'.$dataset->main->myImg($GLOBALS['photoDef']['sub-header']).'"></div>' ?>
+		</div>
 		<div class="content">
 			<div id="schedule-bar">
 				<label class="step-label">STEP1</label>

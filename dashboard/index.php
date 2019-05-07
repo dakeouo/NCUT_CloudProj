@@ -14,7 +14,7 @@
 					<i class="fas fa-store-alt fa-5x"></i>
 				</div>
 				<div class="post-content">
-					<label>店家數</label><br />
+					<label>分店數</label><br />
 					<div style="float: right;">
 						<font>
 						<?php echo $dataset->mysql->getSheetCount("shops"); ?>

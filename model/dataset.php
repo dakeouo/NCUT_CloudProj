@@ -360,7 +360,7 @@ class Dataset{
 				echo '<td width="30%"><div class="img" style="background:none;"><div>';
 				echo '<img src="'.$this->main->myImg(null,"shops").'">';
 				echo '</div></div></td>';
-				echo '<td width="70%" style="position:relative; left:1em;">';
+				echo '<td width="60%" style="position:relative; left:1em;">';
 				echo '<label>'.$row['name'].'門市</label><br />';
 				echo '電話：('.$row['phone_id'].')'.$row['phone'].'<br />';
 				echo '地址：'.$row['address'].'<br />';

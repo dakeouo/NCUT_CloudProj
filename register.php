@@ -16,7 +16,7 @@
 					<input type="radio" name="sex" value="F">女&nbsp;&nbsp;
 					<input type="radio" name="sex" value="N" checked>不願透露
 				</div>
-				<input type="text" name="phone" placeholder="行動電話" required>
+				<input type="text" name="phone" placeholder="行動電話(格式：09xx-xxxxxx)" pattern="[0-9]{4}-[0-9]{6}" required>
 				<input type="email" name="email" placeholder="電子信箱(帳號)" required>
 				<input type="submit" name="submit" class="btn btn-primary fit" value="註冊">
 				<input type="button" name="submit" class="btn btn-second fit" value="返回登入畫面" onclick="javascript:location.href='login.php'">

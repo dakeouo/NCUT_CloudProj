@@ -38,18 +38,17 @@ class Auth{
 	}
 	function register($data){
 		$uid = $this->mysql->getNumber("users");
-		echo $uid;
 		$sql = "INSERT INTO users (uid, username, password, sex, phone, email, add_at)VALUES ('".$uid."','".$data['username']."',
 		'".$data['password']."','".$data['sex']."','".$data['phone']."',
 		'".$data['email']."', CURRENT_TIME())";
 		if($this->mysql->SQL_Query("INSERT",$sql)){
-			$this->main->Alert("會員新增成功(編號：".$sid.")");
+			$this->main->Alert("會員新增成功(編號：".$uid.")");
 			$this->main->myUrl();
 		}
 	}
 	function addShop($data){
 		$sid = $this->mysql->getNumber("shops");
-		$sql = "INSERT INTO shops (sid, name, password, zone_id, phone_id, phone, address, add_at, end_at)VALUES ('".$sid."','".$data['name']."','".md5($sid,FALSE)."','".$data['zone_id']."','".$data['phone_id']."','".$data['phone']."','".$data['address']."','".$data['start_at']."','".$data['end_at']."')";
+		$sql = "INSERT INTO shops (sid, name, password, zone_id, phone_id, phone, address, start_at, end_at)VALUES ('".$sid."','".$data['name']."','".md5($sid,FALSE)."','".$data['zone_id']."','".$data['phone_id']."','".$data['phone']."','".$data['address']."','".$data['start_at']."','".$data['end_at']."')";
 		if($this->mysql->SQL_Query("INSERT",$sql)){
 			$this->main->Alert("門市新增成功(編號：".$sid.")");
 			$this->main->myUrl("dashboard/shops.php");

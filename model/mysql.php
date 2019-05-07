@@ -138,13 +138,13 @@ class Mysql{
 			case 'orders':
 				if($id) $sql = "SELECT `orders`.`order_id`,`orders`.`status`,`orders`.`person`,`orders`.`phone`,`orders`.`total`,`shops`.`name`,`orders`.`pick_time`,`orders`.`pick_at`,`orders`.`add_at`,`orders`.`finish_at` FROM `orders` JOIN `shops` ON `orders`.`shops` = `shops`.`sid` WHERE `orders`.`isActive`=1 AND `orders`.`order_id`='".$id."'";
 				else{
-					$sql = "SELECT `orders`.`order_id`,`orders`.`status`,`orders`.`person`,`orders`.`total`,`shops`.`name`,`orders`.`pick_time`,`orders`.`add_at`,`orders`.`finish_at` FROM `orders` JOIN `shops` ON `orders`.`shops` = `shops`.`sid` WHERE `orders`.`isActive`=1 AND `orders`.`status` < 3";
+					$sql = "SELECT `orders`.`order_id`,`orders`.`status`,`orders`.`person`,`orders`.`total`,`shops`.`name`,`orders`.`pick_time`,`orders`.`add_at`,`orders`.`finish_at` FROM `orders` JOIN `shops` ON `orders`.`shops` = `shops`.`sid` WHERE `orders`.`isActive`=1 AND `orders`.`status` < 3 ORDER BY `orders`.`add_at`";
 				}
 				break;
 			case 'rec_orders':
 				if($id) $sql = "SELECT `orders`.`order_id`,`orders`.`status`,`orders`.`person`,`orders`.`phone`,`orders`.`total`,`shops`.`name`,`orders`.`pick_time`,`orders`.`add_at`,`orders`.`finish_at` FROM `orders` JOIN `shops` ON `orders`.`shops` = `shops`.`sid` WHERE `orders`.`isActive`=1 AND `orders`.`order_id`='".$id."'";
 				else{
-					$sql = "SELECT `orders`.`order_id`,`orders`.`status`,`orders`.`person`,`orders`.`total`,`shops`.`name`,`orders`.`pick_time`,`orders`.`add_at`,`orders`.`finish_at` FROM `orders` JOIN `shops` ON `orders`.`shops` = `shops`.`sid` WHERE `orders`.`isActive`=1 AND `orders`.`status` >= 3";
+					$sql = "SELECT `orders`.`order_id`,`orders`.`status`,`orders`.`person`,`orders`.`total`,`shops`.`name`,`orders`.`pick_time`,`orders`.`add_at`,`orders`.`finish_at` FROM `orders` JOIN `shops` ON `orders`.`shops` = `shops`.`sid` WHERE `orders`.`isActive`=1 AND `orders`.`status` >= 3 ORDER BY `orders`.`add_at`";
 				}
 				break;
 			case 'user_orders':
@@ -245,7 +245,7 @@ class Mysql{
 				$sql = 'SELECT count(`pid`) AS "count" FROM `products` WHERE `isActive` = 1';
 				break;
 			case 'shops':
-				$sql = 'SELECT count(`sid`) AS "count" FROM `shops` WHERE `isActive` = 1';
+				$sql = 'SELECT count(`sid`)-1 AS "count" FROM `shops` WHERE `isActive` = 1';
 				break;
 			case 'orders':
 				$sql = 'SELECT count(`order_id`) AS "count" FROM `orders` WHERE `isActive` = 1';

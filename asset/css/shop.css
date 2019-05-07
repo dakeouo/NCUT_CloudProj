@@ -113,14 +113,41 @@ table tr:nth-child(even){
 #headerImg{
 	position: relative;
 	background-color: #eee;
+	min-width: 1200px;
+	width: inherit;
 	align-items: center;
 	height: 20em;
+	overflow: hidden;
+}
+#headerImg div{
+	position: absolute;
+	top: calc(-50%);
+	width: inherit;
+	height: auto;
+	display: block;
+}
+#headerImg div img{
+	position: relative;
+	width: 100%;
 }
 #contentImg{
 	position: relative;
 	background-color: #eee;
 	align-items: center;
 	height: 10em;
+	overflow: hidden;
+}
+#contentImg div{
+	position: relative;
+	/*left: -25%;*/
+	width: inherit;
+	height: inherit;
+	text-align: center;
+	/*overflow: hidden;*/
+}
+#contentImg div img{
+	position: relative;
+	height: 100%;
 }
 
 .content-area{
@@ -166,7 +193,7 @@ table tr:nth-child(even){
 .area-contact{
 	position: relative;
 	top: 1.5em;
-	min-width: 900px;
+	min-width: 1000px;
 	width: inherit;
 	height: auto;
 }
@@ -181,13 +208,13 @@ table tr:nth-child(even){
 .area-contact ul li{
 	position: relative;
 	width: 40%;
-	padding: 1.2em 3vw;
+	padding: 1.2em 2.5em;
 	height: auto;
 	/*background-color: orange;*/
 }
 .area-contact ul li table tr td{
 	text-align: left;
-	line-height: 2em;
+	line-height: 1.8em;
 }
 .area-contact ul li table tr td label{
 	position: relative;

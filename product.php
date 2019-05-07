@@ -6,7 +6,9 @@
 <body>
 	<?php include_once "temp/banner.php" ?>
 	<div class="container">
-		<div id="contentImg"></div>
+		<div id="contentImg">
+			<?php echo '<div><img src="'.$dataset->main->myImg($GLOBALS['photoDef']['sub-header']).'"></div>' ?>
+		</div>
 		<div class="content">
 			<div class="content-area" id="area1">
 				<label class="title">飲品總覽</label>

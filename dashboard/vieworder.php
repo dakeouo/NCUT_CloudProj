@@ -61,7 +61,7 @@
 	$(function() {
 		var item = parseInt($("#item").attr("value"));
 		if(item < 2) item = 0;
-		var h = 43 + (item-8)*2;
+		var h = 43 + (item-6)*2;
     	$("#backend-content-area").css("height", h+"em");
 	});
 </script>

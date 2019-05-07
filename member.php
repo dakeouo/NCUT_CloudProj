@@ -24,6 +24,9 @@
 		</div>
 	<?php } ?>
 	<div class="container">
+		<div id="contentImg">
+			<?php echo '<div><img src="'.$dataset->main->myImg($GLOBALS['photoDef']['sub-header']).'"></div>' ?>
+		</div>
 		<div class="content">
 			<div id="backend-title-area">
 				<label id="total-title"><?php echo $title;?></label>
