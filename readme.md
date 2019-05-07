@@ -28,7 +28,8 @@
 ## 網站安裝
 1. 還原/下載專案
 2. 匯入資料庫資料(/ncut_sql.sql)
-3. 複製資料庫事件資料(/ncut_event.sql)
+3. 開啟事件排程變數`set global event_scheduler = ON;`
+3. 複製事件排程資料(/ncut_event.sql)
 4. 建立/model/config.php並填入以下資訊
 ```php
 $GLOBALS['baseUrl'] = "YOUR HOSTNAME";
