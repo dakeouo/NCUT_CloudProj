@@ -112,7 +112,11 @@ table tr:nth-child(even){
 }
 #headerImg{
 	position: relative;
-	background-color: #eee;
+	/*background-color: #eee;*/
+	background: -webkit-linear-gradient(90deg,#1a1a1a,#606060);
+	background: -o-linear-gradient(90deg,#1a1a1a,#606060);
+	background: -moz-linear-gradient(90deg,#1a1a1a,#606060);
+	background: linear-gradient(90deg,#1a1a1a,#606060);
 	min-width: 1200px;
 	width: inherit;
 	align-items: center;
@@ -121,25 +125,31 @@ table tr:nth-child(even){
 }
 #headerImg div{
 	position: absolute;
-	top: calc(-50%);
+	/*top: calc(-50%);*/
 	width: inherit;
 	height: auto;
-	display: block;
+	/*display: block;*/
+	text-align: center;
 }
 #headerImg div img{
 	position: relative;
-	width: 100%;
+	/*width: 100%;*/
+	top: 4em;
+	height: 12em;
 }
 #contentImg{
 	position: relative;
-	background-color: #eee;
+	/*background-color: #eee;*/
+	background: -webkit-linear-gradient(90deg,#1a1a1a,#606060);
+	background: -o-linear-gradient(90deg,#1a1a1a,#606060);
+	background: -moz-linear-gradient(90deg,#1a1a1a,#606060);
+	background: linear-gradient(90deg,#1a1a1a,#606060);
 	align-items: center;
 	height: 10em;
 	overflow: hidden;
 }
 #contentImg div{
 	position: relative;
-	/*left: -25%;*/
 	width: inherit;
 	height: inherit;
 	text-align: center;
@@ -147,7 +157,9 @@ table tr:nth-child(even){
 }
 #contentImg div img{
 	position: relative;
-	height: 100%;
+	/*height: 100%;*/
+	top: 1em;
+	height: 8em;
 }
 
 .content-area{

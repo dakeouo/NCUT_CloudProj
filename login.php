@@ -1,3 +1,4 @@
+<?php include_once "model/dataset.php"; $dataset = new Dataset();?>
 <html>
 <head>
 	<?php $title = "登入";  include_once "temp/header.php"; ?>
