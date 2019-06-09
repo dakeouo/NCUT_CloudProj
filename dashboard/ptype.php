@@ -25,7 +25,7 @@
 			<div class="hide-ptype-form">
 				<label id="total-title">新增類別名稱</label>
 				<a href="ptype.php" id="total-btn" class="btn btn-second">返回</a>
-				<form method="POST" action="../authcheck.php">
+				<form method="POST" action="../method/chData.php">
 					<input type="hidden" name="mode" value="back-ptype-add">
 					名稱：<input type="text" name="name" value=""><br />
 					<input type="submit" name="submit" class="btn btn-green fit" value="確定新增" onclick="">

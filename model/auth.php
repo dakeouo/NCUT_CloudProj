@@ -40,7 +40,7 @@ class Auth{
 		$uid = $this->mysql->getNumber("users");
 		$sql = "INSERT INTO users (uid, username, password, sex, phone, email, add_at)VALUES ('".$uid."','".$data['username']."',
 		'".$data['password']."','".$data['sex']."','".$data['phone']."',
-		'".$data['email']."', CURRENT_TIME())";
+		'".$data['email']."', CONCAT(CURRENT_DATE(),' ',CURRENT_TIME()))";
 		if($this->mysql->SQL_Query("INSERT",$sql)){
 			$this->main->Alert("會員新增成功(編號：".$uid.")");
 			$this->main->myUrl();
