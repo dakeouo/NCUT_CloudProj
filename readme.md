@@ -61,4 +61,4 @@ $GLOBALS['DB_dbname'] = "YOUR DBNAME";
 - [chart.js](https://www.chartjs.org/)
 
 ## Designer
-- [Liang Jyun Hong](https://github.com/louishong)
+- [Dake Hong](https://github.com/dakeouo)
