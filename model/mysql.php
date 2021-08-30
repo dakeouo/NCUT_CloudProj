@@ -33,13 +33,13 @@ class Mysql{
 	}
 	function ItemisExist($type,$name){
 		if($type == "shops"){
-			$sql = "SELECT sid, name FROM shops WHERE name='".$name."' AND isActive=1 LIMIT 0,1";
+			$sql = "SELECT sid, name FROM `web2019_shops` WHERE name='".$name."' AND isActive=1 LIMIT 0,1";
 		}else if($type == "ptypes"){
-			$sql = "SELECT `type_id`,`name` FROM `product_type` WHERE `isActive` = 1 AND name='".$name."' LIMIT 0,1";
+			$sql = "SELECT `type_id`,`name` FROM `web2019_product_type` WHERE `isActive` = 1 AND name='".$name."' LIMIT 0,1";
 		}else if($type == "products"){
-			$sql = "SELECT `pid`,`name` FROM `products` WHERE `isActive` = 1 AND name='".$name."' LIMIT 0,1";
+			$sql = "SELECT `pid`,`name` FROM `web2019_products` WHERE `isActive` = 1 AND name='".$name."' LIMIT 0,1";
 		}else if($type == "users"){
-			$sql = "SELECT `uid`,`email` FROM `users` WHERE `isActive` = 1 AND email='".$name."' LIMIT 0,1";
+			$sql = "SELECT `uid`,`email` FROM `web2019_users` WHERE `isActive` = 1 AND email='".$name."' LIMIT 0,1";
 		}
 		$result = $this->conn->query($sql);
 		if ($result->num_rows > 0){
@@ -55,13 +55,13 @@ class Mysql{
 	}
 	function userCheck($type,$account,$password=null){
 		if($type == "users"){
-			$sql = "SELECT uid, username, password FROM users WHERE email='".$account."' AND uid <> 'A00000' AND isActive=1";
+			$sql = "SELECT uid, username, password FROM `web2019_users` WHERE email='".$account."' AND uid <> 'A00000' AND isActive=1";
 		}else if($type == "shops"){
-			$sql = "SELECT sid, name, password FROM shops WHERE sid='".$account."' AND isActive=1";
+			$sql = "SELECT sid, name, password FROM `web2019_shops` WHERE sid='".$account."' AND isActive=1";
 		}else if($type == "users-uid"){
-			$sql = "SELECT uid, username, password FROM users WHERE uid='".$account."' AND isActive=1";
+			$sql = "SELECT uid, username, password FROM `web2019_users` WHERE uid='".$account."' AND isActive=1";
 		}else if($type == "users-cart"){
-			$sql = "SELECT uid, username, phone, password FROM users WHERE uid='".$account."' AND isActive=1";
+			$sql = "SELECT uid, username, phone, password FROM `web2019_users` WHERE uid='".$account."' AND isActive=1";
 		}
 		$result = $this->conn->query($sql);
 		if ($result->num_rows > 0){
@@ -102,14 +102,14 @@ class Mysql{
 			default:
 				$varName = null;  break;
 		}
-		$sql = "SELECT var FROM vars WHERE name='".$varName."'";
+		$sql = "SELECT var FROM `web2019_vars` WHERE name='".$varName."'";
 		$result = $this->conn->query($sql);
 		$value = 0;
 		if ($result->num_rows > 0){
 			if($row = $result->fetch_assoc()) $value = $row["var"];
 		}else $value = -1;
 		if($value != -1){
-			$sql = "UPDATE vars SET var =".($value+1)." WHERE name='".$varName."'";
+			$sql = "UPDATE `web2019_vars` SET var =".($value+1)." WHERE name='".$varName."'";
 			$this->SQL_Query("UPDATE",$sql);
 			return $lab.str_pad($value,$len,'0',STR_PAD_LEFT);
 		}else return null;
@@ -119,50 +119,50 @@ class Mysql{
 		switch ($name) {
 			case 'users':
 				if($id){
-					$sql = "SELECT `uid`, `username`, `sex`, `phone`, `email`, `add_at`,`edit_at` FROM `users` WHERE `uid` = '".$id."' AND isActive = 1";
+					$sql = "SELECT `uid`, `username`, `sex`, `phone`, `email`, `add_at`,`edit_at` FROM `web2019_users` WHERE `uid` = '".$id."' AND isActive = 1";
 				}else{
-					$sql = "SELECT `uid`, `username`, `sex`, `phone`, `email`, `add_at` FROM `users` WHERE `uid` <> 'A00000' AND isActive = 1";
+					$sql = "SELECT `uid`, `username`, `sex`, `phone`, `email`, `add_at` FROM `web2019_users` WHERE `uid` <> 'A00000' AND isActive = 1";
 				}
 				break;
 			case 'shops':
-				if($id) $sql = "SELECT `sid`, `name`, `zone_id`, `phone_id`, `phone`, `address`,`start_at`,`end_at` FROM `shops` WHERE `sid`='".$id."' AND isActive = 1";
+				if($id) $sql = "SELECT `sid`, `name`, `zone_id`, `phone_id`, `phone`, `address`,`start_at`,`end_at` FROM `web2019_shops` WHERE `sid`='".$id."' AND isActive = 1";
 				else{
-					$sql = "SELECT `sid`, `name`, `zone_id`, `phone_id`, `phone`, `address`,`start_at`,`end_at` FROM `shops` WHERE `sid` <> 'S0000' AND isActive = 1";
+					$sql = "SELECT `sid`, `name`, `zone_id`, `phone_id`, `phone`, `address`,`start_at`,`end_at` FROM `web2019_shops` WHERE `sid` <> 'S0000' AND isActive = 1";
 				}
 				break;
 			case 'products':
-				if($id) $sql = "SELECT pid, name, type_id, path, price, discribe FROM `products` WHERE isActive = 1 AND `pid`='".$id."'";
+				if($id) $sql = "SELECT pid, name, type_id, path, price, discribe FROM `web2019_products` WHERE isActive = 1 AND `pid`='".$id."'";
 				else{
-					$sql = "SELECT `products`.pid, `products`.name,`product_type`.`name` AS type,`products`.name,`products`.path,`products`.price FROM `products` JOIN `product_type` ON `products`.`type_id` = `product_type`.`type_id` WHERE `products`.isActive = 1";
+					$sql = "SELECT `products`.pid, `products`.name,`product_type`.`name` AS type,`products`.name,`products`.path,`products`.price FROM `web2019_products` AS `products` JOIN `web2019_product_type` AS `product_type` ON `products`.`type_id` = `product_type`.`type_id` WHERE `products`.isActive = 1";
 				}
 				break;
 			case 'orders':
-				if($id) $sql = "SELECT `orders`.`order_id`,`orders`.`status`,`orders`.`person`,`orders`.`phone`,`orders`.`total`,`shops`.`name`,`orders`.`pick_time`,`orders`.`pick_at`,`orders`.`add_at`,`orders`.`finish_at` FROM `orders` JOIN `shops` ON `orders`.`shops` = `shops`.`sid` WHERE `orders`.`isActive`=1 AND `orders`.`order_id`='".$id."'";
+				if($id) $sql = "SELECT `orders`.`order_id`,`orders`.`status`,`orders`.`person`,`orders`.`phone`,`orders`.`total`,`shops`.`name`,`orders`.`pick_time`,`orders`.`pick_at`,`orders`.`add_at`,`orders`.`finish_at` FROM `web2019_orders` AS `orders` JOIN `web2019_shops` AS `shops` ON `orders`.`shops` = `shops`.`sid` WHERE `orders`.`isActive`=1 AND `orders`.`order_id`='".$id."'";
 				else{
-					$sql = "SELECT `orders`.`order_id`,`orders`.`status`,`orders`.`person`,`orders`.`total`,`shops`.`name`,`orders`.`pick_time`,`orders`.`add_at`,`orders`.`finish_at` FROM `orders` JOIN `shops` ON `orders`.`shops` = `shops`.`sid` WHERE `orders`.`isActive`=1 AND `orders`.`status` < 3 ORDER BY `orders`.`add_at`";
+					$sql = "SELECT `orders`.`order_id`,`orders`.`status`,`orders`.`person`,`orders`.`total`,`shops`.`name`,`orders`.`pick_time`,`orders`.`add_at`,`orders`.`finish_at` FROM `web2019_orders` AS `orders` JOIN `web2019_shops` AS `shops` ON `orders`.`shops` = `shops`.`sid` WHERE `orders`.`isActive`=1 AND `orders`.`status` < 3 ORDER BY `orders`.`add_at`";
 				}
 				break;
 			case 'rec_orders':
-				if($id) $sql = "SELECT `orders`.`order_id`,`orders`.`status`,`orders`.`person`,`orders`.`phone`,`orders`.`total`,`shops`.`name`,`orders`.`pick_time`,`orders`.`add_at`,`orders`.`finish_at` FROM `orders` JOIN `shops` ON `orders`.`shops` = `shops`.`sid` WHERE `orders`.`isActive`=1 AND `orders`.`order_id`='".$id."'";
+				if($id) $sql = "SELECT `orders`.`order_id`,`orders`.`status`,`orders`.`person`,`orders`.`phone`,`orders`.`total`,`shops`.`name`,`orders`.`pick_time`,`orders`.`add_at`,`orders`.`finish_at` FROM `web2019_orders` AS `orders` JOIN `web2019_shops` AS `shops` ON `orders`.`shops` = `shops`.`sid` WHERE `orders`.`isActive`=1 AND `orders`.`order_id`='".$id."'";
 				else{
-					$sql = "SELECT `orders`.`order_id`,`orders`.`status`,`orders`.`person`,`orders`.`total`,`shops`.`name`,`orders`.`pick_time`,`orders`.`add_at`,`orders`.`finish_at` FROM `orders` JOIN `shops` ON `orders`.`shops` = `shops`.`sid` WHERE `orders`.`isActive`=1 AND `orders`.`status` >= 3 ORDER BY `orders`.`add_at`";
+					$sql = "SELECT `orders`.`order_id`,`orders`.`status`,`orders`.`person`,`orders`.`total`,`shops`.`name`,`orders`.`pick_time`,`orders`.`add_at`,`orders`.`finish_at` FROM `web2019_orders` AS `orders` JOIN `web2019_shops` AS `shops` ON `orders`.`shops` = `shops`.`sid` WHERE `orders`.`isActive`=1 AND `orders`.`status` >= 3 ORDER BY `orders`.`add_at`";
 				}
 				break;
 			case 'user_orders':
-				if($id) $sql = "SELECT `orders`.`order_id`,`orders`.`status`,`orders`.`person`,`orders`.`phone`,`orders`.`total`,`shops`.`name`,`orders`.`pick_time`,`orders`.`add_at`,`orders`.`finish_at` FROM `orders` JOIN `shops` ON `orders`.`shops` = `shops`.`sid` WHERE `orders`.`isActive`=1 AND `orders`.`order_id`='".$id."'";
+				if($id) $sql = "SELECT `orders`.`order_id`,`orders`.`status`,`orders`.`person`,`orders`.`phone`,`orders`.`total`,`shops`.`name`,`orders`.`pick_time`,`orders`.`add_at`,`orders`.`finish_at` FROM `web2019_orders` AS `orders` JOIN `web2019_shops` AS `shops` ON `orders`.`shops` = `shops`.`sid` WHERE `orders`.`isActive`=1 AND `orders`.`order_id`='".$id."'";
 				else{
-					$sql = "SELECT `orders`.`order_id`,`orders`.`status`,`orders`.`person`,`orders`.`total`,`shops`.`name`,`orders`.`pick_time`,`orders`.`add_at`,`orders`.`finish_at` FROM `orders` JOIN `shops` ON `orders`.`shops` = `shops`.`sid` WHERE `orders`.`isActive`=1 AND `orders`.`users`='".$_SESSION['uid']."'";
+					$sql = "SELECT `orders`.`order_id`,`orders`.`status`,`orders`.`person`,`orders`.`total`,`shops`.`name`,`orders`.`pick_time`,`orders`.`add_at`,`orders`.`finish_at` FROM `web2019_orders` AS `orders` JOIN `web2019_shops` AS `shops` ON `orders`.`shops` = `shops`.`sid` WHERE `orders`.`isActive`=1 AND `orders`.`users`='".$_SESSION['uid']."'";
 				}
 				break;
 			case 'order_info':
-				$sql = "SELECT `products`.`pid`,`products`.`name`, `order_info`.`unit`,`products`.`price` FROM `order_info` JOIN `products` ON `order_info`.`pid` = `products`.`pid` WHERE `order_info`.`order_id`='".$id."' AND `isActive`=1";
+				$sql = "SELECT `products`.`pid`,`products`.`name`, `order_info`.`unit`,`products`.`price` FROM `web2019_order_info` AS `order_info` JOIN `web2019_products` AS `products` ON `order_info`.`pid` = `products`.`pid` WHERE `order_info`.`order_id`='".$id."' AND `isActive`=1";
 				break;
 			case 'zones':
-				$sql = "SELECT `zone_id`,`name` FROM `zone` WHERE 1";
+				$sql = "SELECT `zone_id`,`name` FROM `web2019_zone` WHERE 1";
 				break;
 			case 'pTypes':
-				if($id) $sql = "SELECT `type_id`,`name` FROM `product_type` WHERE `isActive` = 1 AND `type_id` = '".$id."'";
-				else $sql = "SELECT `type_id`,`name` FROM `product_type` WHERE `isActive` = 1";
+				if($id) $sql = "SELECT `type_id`,`name` FROM `web2019_product_type` WHERE `isActive` = 1 AND `type_id` = '".$id."'";
+				else $sql = "SELECT `type_id`,`name` FROM `web2019_product_type` WHERE `isActive` = 1";
 				break;
 			default:
 				# code...
@@ -181,13 +181,13 @@ class Mysql{
 		switch ($name) {
 			case 'products':
 				if($type){
-					$sql = "SELECT `name`, `price`,`path` FROM `products` WHERE `type_id` = '".$type."' AND isActive = 1 AND count <> 0 ORDER BY `count` DESC LIMIT 0,".$rank;
+					$sql = "SELECT `name`, `price`,`path` FROM `web2019_products` WHERE `type_id` = '".$type."' AND isActive = 1 AND count <> 0 ORDER BY `count` DESC LIMIT 0,".$rank;
 				}else{
-					$sql = "SELECT `name`, `price`,`path`,`count` FROM `products` WHERE  isActive = 1 ORDER BY `count` DESC LIMIT 0,".$rank;
+					$sql = "SELECT `name`, `price`,`path`,`count` FROM `web2019_products` WHERE  isActive = 1 ORDER BY `count` DESC LIMIT 0,".$rank;
 				}
 				break;
 			case 'shops':
-				$sql = "SELECT `sid`, `name`, `phone_id`, `phone`, `address`,`start_at`,`end_at` FROM `shops` WHERE isActive = 1";
+				$sql = "SELECT `sid`, `name`, `phone_id`, `phone`, `address`,`start_at`,`end_at` FROM `web2019_shops` WHERE isActive = 1";
 				break;
 			default:
 				# code...
@@ -205,10 +205,10 @@ class Mysql{
 	function updatePasswd($type,$id,$md5_pwd,$isRoot=FALSE){
 		switch ($type) {
 			case 'shops':
-				$sql = 'UPDATE `shops` SET `password`="'.$md5_pwd.'" WHERE `sid`="'.$id.'"';
+				$sql = 'UPDATE `web2019_shops` SET `password`="'.$md5_pwd.'" WHERE `sid`="'.$id.'"';
 				break;
 			case 'users':
-				$sql = 'UPDATE `users` SET `password`="'.$md5_pwd.'" WHERE `uid`="'.$id.'"';
+				$sql = 'UPDATE `web2019_users` SET `password`="'.$md5_pwd.'" WHERE `uid`="'.$id.'"';
 				break;
 			default:
 				# code...
@@ -228,11 +228,11 @@ class Mysql{
 	}
 	function setOrderStatus($oid,$status){
 		if($status == 2){
-			$sql = "UPDATE `orders` SET `status`=".$status.",`finish_at`= CURRENT_TIMESTAMP() WHERE `order_id`='".$oid."' AND `isActive`=1";
+			$sql = "UPDATE `web2019_orders` SET `status`=".$status.",`finish_at`= CURRENT_TIMESTAMP() WHERE `order_id`='".$oid."' AND `isActive`=1";
 		}else if($status == 3){
-			$sql = "UPDATE `orders` SET `status`=".$status.",`pick_at`= CURRENT_TIMESTAMP() WHERE `order_id`='".$oid."' AND `isActive`=1";
+			$sql = "UPDATE `web2019_orders` SET `status`=".$status.",`pick_at`= CURRENT_TIMESTAMP() WHERE `order_id`='".$oid."' AND `isActive`=1";
 		}else{
-			$sql = "UPDATE `orders` SET `status`=".$status." WHERE `order_id`='".$oid."' AND `isActive`=1";
+			$sql = "UPDATE `web2019_orders` SET `status`=".$status." WHERE `order_id`='".$oid."' AND `isActive`=1";
 		}
 		$this->SQL_Query("UPDATE",$sql);
 		
@@ -240,16 +240,16 @@ class Mysql{
 	function getSheetCount($sheet){
 		switch ($sheet) {
 			case 'users':
-				$sql = 'SELECT count(`uid`)-1 AS "count" FROM `users` WHERE `isActive` = 1';
+				$sql = 'SELECT count(`uid`)-1 AS "count" FROM `web2019_users` WHERE `isActive` = 1';
 				break;
 			case 'products':
-				$sql = 'SELECT count(`pid`) AS "count" FROM `products` WHERE `isActive` = 1';
+				$sql = 'SELECT count(`pid`) AS "count" FROM `web2019_products` WHERE `isActive` = 1';
 				break;
 			case 'shops':
-				$sql = 'SELECT count(`sid`)-1 AS "count" FROM `shops` WHERE `isActive` = 1';
+				$sql = 'SELECT count(`sid`)-1 AS "count" FROM `web2019_shops` WHERE `isActive` = 1';
 				break;
 			case 'orders':
-				$sql = 'SELECT count(`order_id`) AS "count" FROM `orders` WHERE `isActive` = 1';
+				$sql = 'SELECT count(`order_id`) AS "count" FROM `web2019_orders` WHERE `isActive` = 1';
 				break;
 			default:
 				# code...

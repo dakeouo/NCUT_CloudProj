@@ -38,7 +38,7 @@ class Auth{
 	}
 	function register($data){
 		$uid = $this->mysql->getNumber("users");
-		$sql = "INSERT INTO users (uid, username, password, sex, phone, email, add_at)VALUES ('".$uid."','".$data['username']."',
+		$sql = "INSERT INTO `web2019_users` (uid, username, password, sex, phone, email, add_at)VALUES ('".$uid."','".$data['username']."',
 		'".$data['password']."','".$data['sex']."','".$data['phone']."',
 		'".$data['email']."', CONCAT(CURRENT_DATE(),' ',CURRENT_TIME()))";
 		if($this->mysql->SQL_Query("INSERT",$sql)){
@@ -48,7 +48,7 @@ class Auth{
 	}
 	function addShop($data){
 		$sid = $this->mysql->getNumber("shops");
-		$sql = "INSERT INTO shops (sid, name, password, zone_id, phone_id, phone, address, start_at, end_at)VALUES ('".$sid."','".$data['name']."','".md5($sid,FALSE)."','".$data['zone_id']."','".$data['phone_id']."','".$data['phone']."','".$data['address']."','".$data['start_at']."','".$data['end_at']."')";
+		$sql = "INSERT INTO `web2019_shops` (sid, name, password, zone_id, phone_id, phone, address, start_at, end_at)VALUES ('".$sid."','".$data['name']."','".md5($sid,FALSE)."','".$data['zone_id']."','".$data['phone_id']."','".$data['phone']."','".$data['address']."','".$data['start_at']."','".$data['end_at']."')";
 		if($this->mysql->SQL_Query("INSERT",$sql)){
 			$this->main->Alert("門市新增成功(編號：".$sid.")");
 			$this->main->myUrl("dashboard/shops.php");
@@ -56,7 +56,7 @@ class Auth{
 	}
 	function addpType($name){
 		$sid = $this->mysql->getNumber("ptypes");
-		$sql = "INSERT INTO product_type (type_id,name)VALUES ('".$sid."','".$name."')";
+		$sql = "INSERT INTO `web2019_product_type` (type_id,name)VALUES ('".$sid."','".$name."')";
 		if($this->mysql->SQL_Query("INSERT",$sql)){
 			$this->main->Alert("商品類別新增成功(編號：".$sid.")");
 			$this->main->myUrl("dashboard/ptype.php");
@@ -64,35 +64,35 @@ class Auth{
 	}
 	function addProduct($data){
 		$pid = $this->mysql->getNumber("products");
-		$sql = "INSERT INTO products (pid, name, type_id, price, discribe)VALUES ('".$pid."','".$data['name']."','".$data['type_id']."','".$data['price']."','".$data['discribe']."')";
+		$sql = "INSERT INTO `web2019_products` (pid, name, type_id, price, discribe)VALUES ('".$pid."','".$data['name']."','".$data['type_id']."','".$data['price']."','".$data['discribe']."')";
 		if($this->mysql->SQL_Query("INSERT",$sql)){
 			$this->main->Alert("商品新增成功(編號：".$pid.")");
 			$this->main->myUrl("dashboard/products.php");
 		}
 	}
 	function editShop($data){
-		$sql = "UPDATE `shops` SET `name`='".$data['name']."',`zone_id`='".$data['zone_id']."',`phone_id`='".$data['phone_id']."',`phone`='".$data['phone']."',`address`='".$data['address']."',`start_at`='".$data['start_at']."',`end_at`='".$data['end_at']."' WHERE sid='".$data['sid']."'";
+		$sql = "UPDATE `web2019_shops` SET `name`='".$data['name']."',`zone_id`='".$data['zone_id']."',`phone_id`='".$data['phone_id']."',`phone`='".$data['phone']."',`address`='".$data['address']."',`start_at`='".$data['start_at']."',`end_at`='".$data['end_at']."' WHERE sid='".$data['sid']."'";
 		if($this->mysql->SQL_Query("UPDATE",$sql)){
 			$this->main->Alert("門市資料修改成功(編號：".$data['sid'].")");
 			$this->main->myUrl("dashboard/shops.php");
 		}
 	}
 	function editpType($id,$name){
-		$sql = "UPDATE `product_type` SET `name`='".$name."' WHERE `type_id`='".$id."'";
+		$sql = "UPDATE `web2019_product_type` SET `name`='".$name."' WHERE `type_id`='".$id."'";
 		if($this->mysql->SQL_Query("UPDATE",$sql)){
 			$this->main->Alert("商品類別修改成功(編號：".$id.")");
 			$this->main->myUrl("dashboard/ptype.php");
 		}
 	}
 	function editProduct($data){
-		$sql = "UPDATE `products` SET `name`='".$data['name']."',`type_id`='".$data['type_id']."',`price`='".$data['price']."',`discribe`='".$data['discribe']."' WHERE pid='".$data['pid']."'";
+		$sql = "UPDATE `web2019_products` SET `name`='".$data['name']."',`type_id`='".$data['type_id']."',`price`='".$data['price']."',`discribe`='".$data['discribe']."' WHERE pid='".$data['pid']."'";
 		if($this->mysql->SQL_Query("UPDATE",$sql)){
 			$this->main->Alert("商品資料修改成功(編號：".$data['pid'].")");
 			$this->main->myUrl("dashboard/products.php");
 		}
 	}
 	function editUserData($data){
-		$sql = "UPDATE `users` SET `username`='".$data['username']."',`sex`='".$data['sex']."',`phone`='".$data['phone']."',`email`='".$data['email']."' WHERE uid='".$data['uid']."'";
+		$sql = "UPDATE `web2019_users` SET `username`='".$data['username']."',`sex`='".$data['sex']."',`phone`='".$data['phone']."',`email`='".$data['email']."' WHERE uid='".$data['uid']."'";
 		if($this->mysql->SQL_Query("UPDATE",$sql)){
 			$this->main->Alert("個人資料修改成功(編號：".$data['uid'].")");
 			$this->main->myUrl("member.php");
@@ -100,15 +100,15 @@ class Auth{
 	}
 	function deleteData($type,$id){
 		if($type == "shops"){
-			$sql = "UPDATE `shops` SET `isActive` = 0 WHERE `sid`='".$id."'";
+			$sql = "UPDATE `web2019_shops` SET `isActive` = 0 WHERE `sid`='".$id."'";
 		}else if($type == "users"){
-			$sql = "UPDATE `users` SET `isActive` = 0 WHERE `uid`='".$id."'";
+			$sql = "UPDATE `web2019_users` SET `isActive` = 0 WHERE `uid`='".$id."'";
 		}else if($type == "ptypes"){
-			$sql = "UPDATE `product_type` SET `isActive` = 0 WHERE `type_id`='".$id."'";
+			$sql = "UPDATE `web2019_product_type` SET `isActive` = 0 WHERE `type_id`='".$id."'";
 		}else if($type == "products"){
-			$sql = "UPDATE `products` SET `isActive` = 0 WHERE `pid`='".$id."'";
+			$sql = "UPDATE `web2019_products` SET `isActive` = 0 WHERE `pid`='".$id."'";
 		}else if($type == "orders"){
-			$sql = "UPDATE `orders` SET `isActive` = 0 WHERE `order_id`='".$id."'";
+			$sql = "UPDATE `web2019_orders` SET `isActive` = 0 WHERE `order_id`='".$id."'";
 		}
 		if($this->mysql->SQL_Query("UPDATE",$sql)){
 			$this->main->Alert("資料刪除成功(編號：".$id.")");

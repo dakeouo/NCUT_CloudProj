@@ -20,10 +20,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `carts`
+-- 資料表結構 `web2019_carts`
 --
 
-CREATE TABLE `carts` (
+CREATE TABLE `web2019_carts` (
   `token` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `users` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `item` int(11) DEFAULT '0',
@@ -35,10 +35,10 @@ CREATE TABLE `carts` (
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `cart_info`
+-- 資料表結構 `web2019_cart_info`
 --
 
-CREATE TABLE `cart_info` (
+CREATE TABLE `web2019_cart_info` (
   `token` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `pid` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL,
   `unit` int(11) DEFAULT NULL
@@ -47,10 +47,10 @@ CREATE TABLE `cart_info` (
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `orders`
+-- 資料表結構 `web2019_orders`
 --
 
-CREATE TABLE `orders` (
+CREATE TABLE `web2019_orders` (
   `order_id` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
   `users` varchar(6) COLLATE utf8mb4_unicode_ci NOT NULL,
   `shops` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -68,10 +68,10 @@ CREATE TABLE `orders` (
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `order_info`
+-- 資料表結構 `web2019_order_info`
 --
 
-CREATE TABLE `order_info` (
+CREATE TABLE `web2019_order_info` (
   `order_id` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
   `pid` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL,
   `unit` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL
@@ -80,10 +80,10 @@ CREATE TABLE `order_info` (
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `products`
+-- 資料表結構 `web2019_products`
 --
 
-CREATE TABLE `products` (
+CREATE TABLE `web2019_products` (
   `pid` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `path` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -97,10 +97,10 @@ CREATE TABLE `products` (
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `product_type`
+-- 資料表結構 `web2019_product_type`
 --
 
-CREATE TABLE `product_type` (
+CREATE TABLE `web2019_product_type` (
   `type_id` varchar(3) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `isActive` varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1'
@@ -109,10 +109,10 @@ CREATE TABLE `product_type` (
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `shops`
+-- 資料表結構 `web2019_shops`
 --
 
-CREATE TABLE `shops` (
+CREATE TABLE `web2019_shops` (
   `sid` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -126,19 +126,19 @@ CREATE TABLE `shops` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- 資料表的匯出資料 `shops`
+-- 資料表的匯出資料 `web2019_shops`
 --
 
-INSERT INTO `shops` (`sid`, `name`, `password`, `zone_id`, `phone_id`, `phone`, `address`, `start_at`, `end_at`, `isActive`) VALUES
+INSERT INTO `web2019_shops` (`sid`, `name`, `password`, `zone_id`, `phone_id`, `phone`, `address`, `start_at`, `end_at`, `isActive`) VALUES
 ('S0000', '總店', 'ac90228e14f347aa40dae0e1e1f448a9', '08', '04', '23924505', '臺中市太平區中山路二段57號', '08:00', '22:00', 1);
 
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `users`
+-- 資料表結構 `web2019_users`
 --
 
-CREATE TABLE `users` (
+CREATE TABLE `web2019_users` (
   `uid` varchar(6) COLLATE utf8mb4_unicode_ci NOT NULL,
   `username` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `sex` int(2) NOT NULL,
@@ -151,29 +151,29 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- 資料表的匯出資料 `users`
+-- 資料表的匯出資料 `web2019_users`
 --
 
-INSERT INTO `users` (`uid`, `username`, `sex`, `password`, `phone`, `email`, `add_at`, `edit_at`, `isActive`) VALUES
+INSERT INTO `web2019_users` (`uid`, `username`, `sex`, `password`, `phone`, `email`, `add_at`, `edit_at`, `isActive`) VALUES
 ('A00000', '訪客', 2, 'd41d8cd98f00b204e9800998ecf8427e', '0000000000', 'default@mail.com', '2019-05-01 12:00:00', '2019-05-01 12:00:00', 1);
 
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `vars`
+-- 資料表結構 `web2019_vars`
 --
 
-CREATE TABLE `vars` (
+CREATE TABLE `web2019_vars` (
   `id` int(5) NOT NULL,
   `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `var` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=COMPACT;
 
 --
--- 資料表的匯出資料 `vars`
+-- 資料表的匯出資料 `web2019_vars`
 --
 
-INSERT INTO `vars` (`id`, `name`, `var`) VALUES
+INSERT INTO `web2019_vars` (`id`, `name`, `var`) VALUES
 (1, 'member_last_id', 1),
 (2, 'shop_last_id', 1),
 (3, 'product_last_id', 1),
@@ -182,16 +182,16 @@ INSERT INTO `vars` (`id`, `name`, `var`) VALUES
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `zone`
+-- 資料表結構 `web2019_zone`
 --
 
-CREATE TABLE `zone` (
+CREATE TABLE `web2019_zone` (
   `zone_id` varchar(2) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- 資料表的匯出資料 `zone`
+-- 資料表的匯出資料 `web2019_zone`
 --
 
 INSERT INTO `zone` (`zone_id`, `name`) VALUES
@@ -223,70 +223,70 @@ INSERT INTO `zone` (`zone_id`, `name`) VALUES
 --
 
 --
--- 資料表索引 `carts`
+-- 資料表索引 `web2019_carts`
 --
-ALTER TABLE `carts`
+ALTER TABLE `web2019_carts`
   ADD PRIMARY KEY (`token`),
   ADD KEY `users` (`users`);
 
 --
--- 資料表索引 `cart_info`
+-- 資料表索引 `web2019_cart_info`
 --
-ALTER TABLE `cart_info`
+ALTER TABLE `web2019_cart_info`
   ADD KEY `token` (`token`),
   ADD KEY `pid` (`pid`);
 
 --
--- 資料表索引 `orders`
+-- 資料表索引 `web2019_orders`
 --
-ALTER TABLE `orders`
+ALTER TABLE `web2019_orders`
   ADD PRIMARY KEY (`order_id`),
   ADD KEY `users` (`users`),
   ADD KEY `shops` (`shops`);
 
 --
--- 資料表索引 `order_info`
+-- 資料表索引 `web2019_order_info`
 --
-ALTER TABLE `order_info`
+ALTER TABLE `web2019_order_info`
   ADD KEY `order_id` (`order_id`),
   ADD KEY `pid` (`pid`);
 
 --
--- 資料表索引 `products`
+-- 資料表索引 `web2019_products`
 --
-ALTER TABLE `products`
+ALTER TABLE `web2019_products`
   ADD PRIMARY KEY (`pid`),
   ADD KEY `type_id` (`type_id`);
 
 --
--- 資料表索引 `product_type`
+-- 資料表索引 `web2019_product_type`
 --
-ALTER TABLE `product_type`
+ALTER TABLE `web2019_product_type`
   ADD PRIMARY KEY (`type_id`);
 
 --
--- 資料表索引 `shops`
+-- 資料表索引 `web2019_shops`
 --
-ALTER TABLE `shops`
+ALTER TABLE `web2019_shops`
   ADD PRIMARY KEY (`sid`),
   ADD KEY `zone_id` (`zone_id`);
 
 --
--- 資料表索引 `users`
+-- 資料表索引 `web2019_users`
 --
-ALTER TABLE `users`
+ALTER TABLE `web2019_users`
   ADD PRIMARY KEY (`uid`);
 
 --
--- 資料表索引 `vars`
+-- 資料表索引 `web2019_vars`
 --
-ALTER TABLE `vars`
+ALTER TABLE `web2019_vars`
   ADD PRIMARY KEY (`id`);
 
 --
--- 資料表索引 `zone`
+-- 資料表索引 `web2019_zone`
 --
-ALTER TABLE `zone`
+ALTER TABLE `web2019_zone`
   ADD PRIMARY KEY (`zone_id`);
 
 --
@@ -296,50 +296,50 @@ ALTER TABLE `zone`
 --
 -- 使用資料表 AUTO_INCREMENT `vars`
 --
-ALTER TABLE `vars`
+ALTER TABLE `web2019_vars`
   MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- 已匯出資料表的限制(Constraint)
 --
 
 --
--- 資料表的 Constraints `carts`
+-- 資料表的 Constraints `web2019_carts`
 --
-ALTER TABLE `carts`
-  ADD CONSTRAINT `carts_ibfk_1` FOREIGN KEY (`users`) REFERENCES `users` (`uid`);
+ALTER TABLE `web2019_carts`
+  ADD CONSTRAINT `web2019_carts_ibfk_1` FOREIGN KEY (`users`) REFERENCES `web2019_users` (`uid`);
 
 --
--- 資料表的 Constraints `cart_info`
+-- 資料表的 Constraints `web2019_cart_info`
 --
-ALTER TABLE `cart_info`
-  ADD CONSTRAINT `cart_info_ibfk_1` FOREIGN KEY (`token`) REFERENCES `carts` (`token`),
-  ADD CONSTRAINT `cart_info_ibfk_2` FOREIGN KEY (`pid`) REFERENCES `products` (`pid`);
+ALTER TABLE `web2019_cart_info`
+  ADD CONSTRAINT `web2019_cart_info_ibfk_1` FOREIGN KEY (`token`) REFERENCES `web2019_carts` (`token`),
+  ADD CONSTRAINT `web2019_cart_info_ibfk_2` FOREIGN KEY (`pid`) REFERENCES `web2019_products` (`pid`);
 
 --
 -- 資料表的 Constraints `orders`
 --
-ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`users`) REFERENCES `users` (`uid`),
-  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`shops`) REFERENCES `shops` (`sid`);
+ALTER TABLE `web2019_orders`
+  ADD CONSTRAINT `web2019_orders_ibfk_1` FOREIGN KEY (`users`) REFERENCES `web2019_users` (`uid`),
+  ADD CONSTRAINT `web2019_orders_ibfk_2` FOREIGN KEY (`shops`) REFERENCES `web2019_shops` (`sid`);
 
 --
 -- 資料表的 Constraints `order_info`
 --
-ALTER TABLE `order_info`
-  ADD CONSTRAINT `order_info_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
-  ADD CONSTRAINT `order_info_ibfk_2` FOREIGN KEY (`pid`) REFERENCES `products` (`pid`);
+ALTER TABLE `web2019_order_info`
+  ADD CONSTRAINT `web2019_order_info_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `web2019_orders` (`order_id`),
+  ADD CONSTRAINT `web2019_order_info_ibfk_2` FOREIGN KEY (`pid`) REFERENCES `web2019_products` (`pid`);
 
 --
 -- 資料表的 Constraints `products`
 --
-ALTER TABLE `products`
-  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `product_type` (`type_id`);
+ALTER TABLE `web2019_products`
+  ADD CONSTRAINT `web2019_products_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `web2019_product_type` (`type_id`);
 
 --
 -- 資料表的 Constraints `shops`
 --
-ALTER TABLE `shops`
-  ADD CONSTRAINT `shops_ibfk_1` FOREIGN KEY (`zone_id`) REFERENCES `zone` (`zone_id`);
+ALTER TABLE `web2019_shops`
+  ADD CONSTRAINT `web2019_shops_ibfk_1` FOREIGN KEY (`zone_id`) REFERENCES `web2019_zone` (`zone_id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
