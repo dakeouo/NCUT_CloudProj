@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once "model/dataset.php";
-include_once "model/cartModel.php";
+include_once "model/CartModel.php";
 $dataset = new Dataset();
 $cartModel = new CartModel();
 
