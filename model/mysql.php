@@ -161,11 +161,10 @@ class Mysql extends SQLite3{
 
 		$result = $this->conn->query($sql);
 		$value = array();
-		if($result->fetchArray(SQLITE3_ASSOC)){
-			while($row = $result->fetchArray(SQLITE3_ASSOC)){
-				array_push($value,$row);
-			}
-		}else $value = -1;
+		while($row = $result->fetchArray(SQLITE3_ASSOC)){
+			array_push($value,$row);
+		}
+		if ($value==array()) $value = -1;
 		return $value;
 	}
 	function getRank($name,$type=null,$rank){
@@ -187,11 +186,10 @@ class Mysql extends SQLite3{
 
 		$result = $this->conn->query($sql);
 		$value = array();
-		if($result->fetchArray(SQLITE3_ASSOC)){
-			while($row = $result->fetchArray(SQLITE3_ASSOC)){
-				array_push($value,$row);
-			}
-		}else $value = -1;
+		while($row = $result->fetchArray(SQLITE3_ASSOC)){
+			array_push($value,$row);
+		}
+		if ($value==array()) $value = -1;
 		return $value;
 	}
 	function updatePasswd($type,$id,$md5_pwd,$isRoot=FALSE){
