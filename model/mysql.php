@@ -1,32 +1,26 @@
 <?php
 include_once "main.php";
-class Mysql{
+class Mysql extends SQLite3{
 	public $conn = null;
 	public $main = null;
 	function __construct(){
-		$servername = $GLOBALS["DB_hostname"];
-		$username = $GLOBALS['DB_username'];
-		$password = $GLOBALS['DB_password'];
-		$dbname = $GLOBALS['DB_dbname'];
-		
-		$this->conn = new mysqli($servername, $username, $password, $dbname);
-		if ($this->conn->connect_error) {
-    		die("Connection failed: " . $this->conn->connect_error);
+		$this->conn = new SQLite3($GLOBALS['rootPath']."/ncut_web2019.db", SQLITE3_OPEN_CREATE | SQLITE3_OPEN_READWRITE);
+		if (!$this->conn) {
+    		die("Connection failed: " . $this->conn->lastErrorMsg());
 		}
-		mysqli_set_charset($this->conn,"utf8");
 		$this->main = new Main();
 	}
 	function __destruct(){
 		$this->conn->close();
 	}
 	function SQL_Query($type,$sql){
-		if (!($this->conn->query($sql) === TRUE)){
+		if (!($this->conn->exec($sql) === TRUE)){
 			if($type == "INSERT"){
-				$this->main->Alert("Creating record fail: " . $this->conn->error);
+				$this->main->Alert("Creating record fail: " . $this->conn->lastErrorMsg());
 			}else if($type == "UPDATE"){
-				$this->main->Alert("Error updating record: " . $this->conn->error);
+				$this->main->Alert("Error updating record: " . $this->conn->lastErrorMsg());
 			}else if($type == "DELETE"){
-				$this->main->Alert("Error delete record: " . $this->conn->error);
+				$this->main->Alert("Error delete record: " . $this->conn->lastErrorMsg());
 			}
 			return false;
 		}else return true;
@@ -42,16 +36,12 @@ class Mysql{
 			$sql = "SELECT `uid`,`email` FROM `web2019_users` WHERE `isActive` = 1 AND email='".$name."' LIMIT 0,1";
 		}
 		$result = $this->conn->query($sql);
-		if ($result->num_rows > 0){
-			if($row = $result->fetch_assoc()){
-				if($type == "shops") return $row["sid"];
-				else if($type == "ptypes") return $row["type_id"];
-				else if($type == "products") return $row["pid"];
-				else if($type == "users") return $row["uid"];
-			}
-		}else{
-			return false;
-		}
+		if($row = $result->fetchArray(SQLITE3_ASSOC)){
+			if($type == "shops") return $row["sid"];
+			else if($type == "ptypes") return $row["type_id"];
+			else if($type == "products") return $row["pid"];
+			else if($type == "users") return $row["uid"];
+		}else return false;
 	}
 	function userCheck($type,$account,$password=null){
 		if($type == "users"){
@@ -63,25 +53,24 @@ class Mysql{
 		}else if($type == "users-cart"){
 			$sql = "SELECT uid, username, phone, password FROM `web2019_users` WHERE uid='".$account."' AND isActive=1";
 		}
+
 		$result = $this->conn->query($sql);
-		if ($result->num_rows > 0){
-			if($row = $result->fetch_assoc()){
-				if(md5($password,FALSE) != $row["password"] AND $type != "users-cart") return -1;
-				else{
-					if($type == "users" or $type == "users-uid") return array(
-						"id" => $row["uid"],
-						"name" => $row["username"],
-					);
-					else if($type == "shops") return array(
-						"id" => $row["sid"],
-						"name" => $row["name"],
-					);
-					else if($type == "users-cart") return array(
-						"id" => $row["uid"],
-						"name" => $row["username"],
-						"phone" => $row["phone"]
-					);
-				}
+		if($row = $result->fetchArray(SQLITE3_ASSOC)){
+			if(md5($password,FALSE) != $row["password"] AND $type != "users-cart") return -1;
+			else{
+				if($type == "users" or $type == "users-uid") return array(
+					"id" => $row["uid"],
+					"name" => $row["username"],
+				);
+				else if($type == "shops") return array(
+					"id" => $row["sid"],
+					"name" => $row["name"],
+				);
+				else if($type == "users-cart") return array(
+					"id" => $row["uid"],
+					"name" => $row["username"],
+					"phone" => $row["phone"]
+				);
 			}
 		}else return false;
 	}
@@ -102,10 +91,11 @@ class Mysql{
 			default:
 				$varName = null;  break;
 		}
+
 		$sql = "SELECT var FROM `web2019_vars` WHERE name='".$varName."'";
 		$result = $this->conn->query($sql);
 		$value = 0;
-		if ($result->num_rows > 0){
+		if($row = $result->fetchArray(SQLITE3_ASSOC)){
 			if($row = $result->fetch_assoc()) $value = $row["var"];
 		}else $value = -1;
 		if($value != -1){
@@ -168,10 +158,11 @@ class Mysql{
 				# code...
 				break;
 		}
+
 		$result = $this->conn->query($sql);
 		$value = array();
-		if ($result->num_rows > 0){
-			while($row = mysqli_fetch_assoc($result)){
+		if($result->fetchArray(SQLITE3_ASSOC)){
+			while($row = $result->fetchArray(SQLITE3_ASSOC)){
 				array_push($value,$row);
 			}
 		}else $value = -1;
@@ -193,10 +184,11 @@ class Mysql{
 				# code...
 				break;
 		}
+
 		$result = $this->conn->query($sql);
 		$value = array();
-		if ($result->num_rows > 0){
-			while($row = mysqli_fetch_assoc($result)){
+		if($result->fetchArray(SQLITE3_ASSOC)){
+			while($row = $result->fetchArray(SQLITE3_ASSOC)){
 				array_push($value,$row);
 			}
 		}else $value = -1;
@@ -214,7 +206,7 @@ class Mysql{
 				# code...
 				break;
 		}
-		if (!($this->conn->query($sql) === TRUE)){
+		if (!($this->conn->exec($sql) === TRUE)){
 			$this->main->Alert("Error updating record: " . $this->conn->error);
 		}else{
 			$this->main->Alert("修改密碼成功(編號：".$id.")");
@@ -255,18 +247,17 @@ class Mysql{
 				# code...
 				break;
 		}
+
 		$result = $this->conn->query($sql);
-		if ($result->num_rows > 0){
-			if($row = mysqli_fetch_assoc($result)){
-				$count = $row['count'];
-				if($count < 1000) return $count;
-				else if(($count >= 1000)&&($count < 1000000)){
-					if($count > 10000){
-						return number_format(($count/1000),0)."k";
-					}else return number_format(($count/1000),1)."k";
-				}else{
-					return number_format(($count/1000000),0)."w";
-				}
+		if($row = $result->fetchArray(SQLITE3_ASSOC)){
+			$count = $row['count'];
+			if($count < 1000) return $count;
+			else if(($count >= 1000)&&($count < 1000000)){
+				if($count > 10000){
+					return number_format(($count/1000),0)."k";
+				}else return number_format(($count/1000),1)."k";
+			}else{
+				return number_format(($count/1000000),0)."w";
 			}
 		}else return -1;
 	}

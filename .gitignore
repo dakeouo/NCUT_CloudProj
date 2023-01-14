@@ -1,4 +1,5 @@
 /model/config.php
+**/*.sql
 php7.0-errors.log
 /asset/img/test/
 /testing.php

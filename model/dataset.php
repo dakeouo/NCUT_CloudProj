@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once "mysql.php";
 include_once "CartModel.php";
 class Dataset{
