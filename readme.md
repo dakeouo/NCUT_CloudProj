@@ -1,4 +1,4 @@
-網站瀏覽：[飲料店管理系統](https://cloud2019.terahake.in/)
+網站瀏覽：[飲料店管理系統](https://ncut-cloud2019.terahake.in/)
 
 ![image](https://i.imgur.com/sMzTOxQ.jpg)
 > 更多 [飲料店管理系統](https://imgur.com/a/g623FcJ) 圖片 
