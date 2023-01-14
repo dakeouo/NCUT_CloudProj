@@ -81,8 +81,10 @@
 	var ctx = document.getElementById('myChart');
 	var top10 = {label:[],data:[]};
 	for(var i=0;i<10;i++) {
-		top10.label.push(document.getElementById('top_label['+i+']').value);
-		top10.data.push(document.getElementById('top_data['+i+']').value);
+		if (document.getElementById(`top_label[${i}]`) != null) {
+			top10.label.push(document.getElementById(`top_label[${i}]`).value);
+			top10.data.push(parseInt(document.getElementById(`top_data[${i}]`).value));
+		}
 	}
 	var myBarChart = new Chart(ctx, {
     	type: 'bar',
